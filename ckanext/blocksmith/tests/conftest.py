@@ -1,4 +1,5 @@
 import pytest
+import factory
 from faker import Faker
 from pytest_factoryboy import register
 
@@ -9,19 +10,18 @@ from ckanext.blocksmith import model as blocksmith_model
 fake = Faker()
 
 
-@register(_name="blocksmith_page")
+@register(_name="page")
 class PageFactory(factories.CKANFactory):
     class Meta:
         model = blocksmith_model.PageModel
         action = "blocksmith_create_page"
 
-    name = fake.slug()
-    title = fake.sentence()
-    html = fake.sentence()
-    editor_data = {"fake": "data"}
-    fullscreen = True
+    name = factory.LazyFunction(lambda: fake.unique.slug())
+    title = factory.LazyFunction(lambda: fake.sentence())
+    html = "<p>Hello, world!</p>"
+    data = "{}"
+    fullscreen = False
     published = True
-    order_index = 1
 
 
 @pytest.fixture()

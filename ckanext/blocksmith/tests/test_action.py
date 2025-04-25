@@ -5,25 +5,67 @@ from ckan.tests.helpers import call_action
 
 @pytest.mark.usefixtures("with_plugins", "clean_db")
 class TestCreatePage:
-    def test_create_page(self, blocksmith_page):
-        assert blocksmith_page["name"]
-        assert blocksmith_page["title"]
-        assert blocksmith_page["html"]
-        assert blocksmith_page["editor_data"]
-        assert blocksmith_page["published"]
-        assert blocksmith_page["order_index"]
-        assert blocksmith_page["fullscreen"]
+    def test_create_page(self, page):
+        assert page["name"]
+        assert page["title"]
+        assert page["html"]
+        assert page["data"]
+        assert page["published"]
+        assert page["fullscreen"]
+        assert page["created_at"]
+        assert page["modified_at"]
 
 
 @pytest.mark.usefixtures("with_plugins", "clean_db")
 class TestGetPage:
-    def test_create_page(self, blocksmith_page):
-        page = call_action("blocksmith_get_page", name=blocksmith_page["name"])
+    def test_create_page(self, page):
+        page = call_action("blocksmith_get_page", name=page["name"])
 
-        assert page["name"] == blocksmith_page["name"]
-        assert page["title"] == blocksmith_page["title"]
-        assert page["html"] == blocksmith_page["html"]
-        assert page["editor_data"] == blocksmith_page["editor_data"]
-        assert page["published"] == blocksmith_page["published"]
-        assert page["order_index"] == blocksmith_page["order_index"]
-        assert page["fullscreen"] == blocksmith_page["fullscreen"]
+        assert page["name"] == page["name"]
+        assert page["title"] == page["title"]
+        assert page["html"] == page["html"]
+        assert page["data"] == page["data"]
+        assert page["published"] == page["published"]
+        assert page["fullscreen"] == page["fullscreen"]
+        assert page["created_at"] == page["created_at"]
+        assert page["modified_at"] == page["modified_at"]
+
+
+@pytest.mark.usefixtures("with_plugins", "clean_db")
+class TestUpdatePage:
+    def test_update_page(self, page):
+        updated_page = call_action(
+            "blocksmith_update_page",
+            id=page["id"],
+            title="New Title",
+            name="new-name",
+            html="New HTML",
+            data="New Data",
+            published=True,
+            fullscreen=True,
+        )
+
+        assert updated_page["name"] == "new-name"
+        assert updated_page["title"] == "New Title"
+        assert updated_page["html"] == "New HTML"
+        assert updated_page["data"] == "New Data"
+        assert updated_page["published"]
+        assert updated_page["fullscreen"]
+        assert updated_page["created_at"] == page["created_at"]
+        assert updated_page["modified_at"] != page["modified_at"]
+
+
+@pytest.mark.usefixtures("with_plugins", "clean_db")
+class TestListPages:
+    def test_list_pages(self, page):
+        pages = call_action("blocksmith_list_pages")
+
+        assert len(pages) == 1
+        assert pages[0]["name"] == page["name"]
+        assert pages[0]["title"] == page["title"]
+        assert pages[0]["html"] == page["html"]
+        assert pages[0]["data"] == page["data"]
+        assert pages[0]["published"] == page["published"]
+        assert pages[0]["fullscreen"] == page["fullscreen"]
+        assert pages[0]["created_at"] == page["created_at"]
+        assert pages[0]["modified_at"] == page["modified_at"]

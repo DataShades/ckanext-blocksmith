@@ -69,7 +69,7 @@ ckan.module("blocksmith-editor", function ($) {
 
                 <div class="form-group control-medium">
                     <label class="form-label">Published</label><br>
-                    <input type="checkbox" id="${this.constants.fieldPublishedID}" ${page.published ? "checked" : ""} />
+                    <input type="checkbox" value="yes" id="${this.constants.fieldPublishedID}" ${page.published ? "checked" : ""} />
                 </div>
 
                 <div class="form-actions">
@@ -111,14 +111,15 @@ ckan.module("blocksmith-editor", function ($) {
 
         _initGrapesJS: function () {
             this.editor = grapesjs.init({
-                projectData: this.page?.editor_data || {
+                projectData: this.page?.data || {
                     pages: [{ component: this.defaultContent }]
                 },
                 container: this.el[0],
                 plugins: ["grapesjs-preset-webpage", "gjs-blocks-basic"],
                 pluginsOpts: {
                     "grapesjs-preset-webpage": {
-                        textCleanCanvas: "Are you sure you want to clear the canvas?"
+                        textCleanCanvas: "Are you sure you want to clear the canvas?",
+                        modalImportLabel: "How do you want to import your page?"
                     },
                     "gjs-blocks-basic": {
                         blocks: [
@@ -191,10 +192,11 @@ ckan.module("blocksmith-editor", function ($) {
                     'X-CSRFToken': csrf_token
                 },
                 success: (resp) => {
-                    window.location.href = `/page/${resp.result.name}`;
-                },
-                error: (resp) => {
-                    console.error(resp);
+                    if (resp.success) {
+                        window.location.href = `/page/${resp.result.name}`;
+                    } else {
+                        console.error(resp);
+                    }
                 }
             });
         },
@@ -208,7 +210,7 @@ ckan.module("blocksmith-editor", function ($) {
                 ${this.editor.getHtml()}
             `;
             const editorData = this.editor.getProjectData();
-
+            const published = container.querySelector(`#${this.constants.fieldPublishedID}`).value;
             const formData = new FormData();
 
             if (this.page) {
@@ -219,8 +221,8 @@ ckan.module("blocksmith-editor", function ($) {
             formData.append("name", name);
             formData.append("fullscreen", fullscreen);
             formData.append("html", fullHtml);
-            formData.append("editor_data", JSON.stringify(editorData));
-
+            formData.append("data", JSON.stringify(editorData));
+            formData.append("published", published);
             return formData;
         },
 

@@ -1,5 +1,3 @@
-import json
-
 from flask import Blueprint
 from flask.views import MethodView
 
@@ -20,6 +18,11 @@ def make_context() -> Context:
 
 class EditorView(MethodView):
     def get(self):
+        try:
+            tk.check_access("blocksmith_create_page", make_context(), {})
+        except tk.NotAuthorized:
+            return tk.abort(404, "Page not found")
+
         return tk.render("blocksmith/create.html")
 
 
@@ -27,9 +30,12 @@ class ReadView(MethodView):
     def get(self, page_name: str):
         page = model.PageModel.get(page_name)
 
+        if not page:
+            return tk.abort(404, "Page not found")
+
         try:
             tk.check_access("blocksmith_get_page", make_context(), {"name": page_name})
-        except (tk.NotAuthorized, tk.ObjectNotFound):
+        except tk.NotAuthorized:
             return tk.abort(404, "Page not found")
 
         template = (
@@ -47,13 +53,25 @@ class EditView(MethodView):
 
         try:
             tk.check_access("blocksmith_edit_page", make_context(), {"name": page_name})
-        except (tk.NotAuthorized, tk.ObjectNotFound):
+        except tk.NotAuthorized:
             return tk.abort(404, "Page not found")
 
-        page_dict = page.dictize({})  # type: ignore
-        page_dict["editor_data"] = json.dumps(page_dict["editor_data"])
+        if not page:
+            return tk.abort(404, "Page not found")
 
-        return tk.render("blocksmith/edit.html", extra_vars={"page": page_dict})
+        return tk.render("blocksmith/edit.html", extra_vars={"page": page.dictize({})})
+
+
+class ListView(MethodView):
+    def get(self):
+        try:
+            tk.check_access("blocksmith_list_pages", make_context(), {})
+        except tk.NotAuthorized:
+            return tk.abort(404, "Page not found")
+
+        pages = [page.dictize({}) for page in model.PageModel.get_all()]
+
+        return tk.render("blocksmith/list.html", extra_vars={"pages": pages})
 
 
 blocksmith_blueprint.add_url_rule(
@@ -64,4 +82,7 @@ blocksmith_blueprint.add_url_rule(
 )
 blocksmith_blueprint.add_url_rule(
     "/page/<page_name>", view_func=ReadView.as_view("read")
+)
+blocksmith_blueprint.add_url_rule(
+    "/blocksmith/list", view_func=ListView.as_view("list")
 )

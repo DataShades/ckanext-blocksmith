@@ -11,11 +11,9 @@ Schema = Dict[str, Any]
 def blocksmith_create_page(
     not_empty,
     name_validator,
-    convert_to_json_if_string,
     boolean_validator,
     if_empty_same_as,
     unicode_safe,
-    int_validator,
     ignore,
     default,
 ) -> Schema:
@@ -24,9 +22,8 @@ def blocksmith_create_page(
         "name": [not_empty, unicode_safe, name_validator],
         "title": [if_empty_same_as("name"), unicode_safe],
         "html": [not_empty, unicode_safe],
-        "editor_data": [not_empty, convert_to_json_if_string],
+        "data": [not_empty, unicode_safe],
         "published": [default(False), boolean_validator],
-        "order_index": [default(0), int_validator],
         "fullscreen": [default(False), boolean_validator],
         "__extras": [ignore],
     }
@@ -44,9 +41,7 @@ def blocksmith_update_page(
     name_validator,
     blocksmith_page_exists,
     boolean_validator,
-    int_validator,
     ignore,
-    convert_to_json_if_string,
     ignore_empty,
 ) -> Schema:
     return {
@@ -54,9 +49,13 @@ def blocksmith_update_page(
         "title": [ignore_empty, unicode_safe],
         "name": [ignore_empty, unicode_safe, name_validator],
         "html": [ignore_empty, unicode_safe],
-        "editor_data": [ignore_empty, convert_to_json_if_string],
+        "data": [ignore_empty, unicode_safe],
         "published": [ignore_empty, boolean_validator],
-        "order_index": [ignore_empty, int_validator],
         "fullscreen": [ignore_empty, boolean_validator],
         "__extras": [ignore],
     }
+
+
+@validator_args
+def blocksmith_delete_page(not_empty, blocksmith_page_exists) -> Schema:
+    return {"id": [not_empty, blocksmith_page_exists]}
