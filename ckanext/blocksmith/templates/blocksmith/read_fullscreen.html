@@ -1,13 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
+{% extends "page.html" %}
+
+{% block title %}
+    {{_("Page") }} - {{ page.title }}
+{% endblock %}
+
+{% block page %}
+    {% if h.check_access('blocksmith_edit_page', {'name': page.name}) %}
+        <a class="btn btn-outline-primary btn-page-edit" href="{{ h.url_for('blocksmith.edit', page_name=page.name) }}">
+            {{ _("Edit") }}
+        </a>
+    {% endif %}
+
+    {% block primary %}
         <div class="blocksmith-page-content">
             {{ page.html|safe }}
         </div>
-    </body>
-</html>
+    {% endblock %}
+{% endblock %}
+
+{%- block styles %}
+    {% asset 'blocksmith/blocksmith-css' %}
+
+    {{ super() }}
+{% endblock %}

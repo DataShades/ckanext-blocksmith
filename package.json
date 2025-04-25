@@ -1,0 +1,17 @@
+{
+    "dependencies": {
+        "gulp": "^5.0.0",
+        "gulp-clean-css": "^4.3.0",
+        "gulp-if": "^3.0.0",
+        "gulp-postcss": "^10.0.0",
+        "gulp-sass": "^6.0.1",
+        "gulp-sourcemaps": "^3.0.0",
+        "gulp-touch-fd": "^2.0.0",
+        "postcss-sort-media-queries": "^5.2.0",
+        "sass": "^1.85.1"
+    },
+    "scripts": {
+        "dev": "DEBUG=1 gulp watch",
+        "build": "gulp build"
+    }
+}

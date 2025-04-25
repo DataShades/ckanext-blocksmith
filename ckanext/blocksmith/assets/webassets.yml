@@ -15,4 +15,4 @@ blocksmith-css:
   output: ckanext-blocksmith/%(version)s-blocksmith.css
   contents:
     - css/vendor/grapes.min.css
-    - css/blocksmith.css
+    - css/main.css

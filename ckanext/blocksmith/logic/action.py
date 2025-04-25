@@ -8,11 +8,11 @@ import ckanext.blocksmith.logic.schema as schema
 import ckanext.blocksmith.model as model
 
 
-@validate(schema.blocksmith_save_page)
-def blocksmith_save_page(
+@validate(schema.blocksmith_create_page)
+def blocksmith_create_page(
     context: types.Context, data_dict: types.DataDict
 ) -> types.ActionResult.AnyDict:
-    tk.check_access("blocksmith_save_page", context, data_dict)
+    tk.check_access("blocksmith_create_page", context, data_dict)
 
     page = model.PageModel.create(data_dict)
 
@@ -27,5 +27,18 @@ def blocksmith_get_page(
     tk.check_access("blocksmith_get_page", context, data_dict)
 
     page = cast(model.PageModel, model.PageModel.get(data_dict["name"]))
+
+    return page.dictize(context)
+
+
+@validate(schema.blocksmith_update_page)
+def blocksmith_update_page(
+    context: types.Context, data_dict: types.DataDict
+) -> types.ActionResult.AnyDict:
+    tk.check_access("blocksmith_update_page", context, data_dict)
+
+    page = cast(model.PageModel, model.PageModel.get(data_dict["name"]))
+
+    page.update(data_dict)
 
     return page.dictize(context)

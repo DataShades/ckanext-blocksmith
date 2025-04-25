@@ -1,0 +1,33 @@
+$color-dark-blue: #005d7a;
+$color-light-blue: #1E8FE1;
+$color-white: white;
+
+#gjs {
+    --gjs-left-width: 20%;
+
+    label {
+        font-size: inherit;
+
+        &:after {
+            display: none;
+        }
+    }
+
+    .gjs-one-bg {
+        background-color: $color-dark-blue;
+    }
+
+    .gjs-two-color {
+        color: $color-white;
+    }
+
+    .gjs-three-bg {
+        background-color: $color-light-blue;
+        color: $color-white;
+    }
+
+    .gjs-four-color,
+    .gjs-four-color-h:hover {
+        color: $color-light-blue;
+    }
+}

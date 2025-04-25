@@ -48,6 +48,7 @@ class PageModel(tk.BaseModel):
             "order_index": self.order_index,
             "created_at": self.created_at.isoformat(),
             "modified_at": self.modified_at.isoformat(),
+            "fullscreen": self.fullscreen,
         }
 
     @classmethod
@@ -61,3 +62,9 @@ class PageModel(tk.BaseModel):
     @classmethod
     def get_all(cls) -> list[Self]:
         return model.Session.query(cls).order_by(cls.order_index).all()
+
+    def update(self, data_dict: dict[str, Any]) -> None:
+        for key, value in data_dict.items():
+            setattr(self, key, value)
+
+        model.Session.commit()
