@@ -1,0 +1,18 @@
+blocksmith-js:
+  filter: rjsmin
+  output: ckanext-blocksmith/%(version)s-blocksmith.js
+  contents:
+    - js/vendor/grapes.min.js
+    - js/vendor/grapes-preset-webpage.min.js
+    - js/vendor/grapes-blocks-basic.min.js
+    - js/blocksmith-editor.js
+  extra:
+    preload:
+      - base/main
+
+blocksmith-css:
+  filter: cssrewrite
+  output: ckanext-blocksmith/%(version)s-blocksmith.css
+  contents:
+    - css/vendor/grapes.min.css
+    - css/blocksmith.css

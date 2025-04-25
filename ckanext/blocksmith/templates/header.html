@@ -1,0 +1,13 @@
+{% ckan_extends %}
+
+{% block header_account_logged %}
+    {% if g.userobj.sysadmin %}
+        <li>
+            <a href="{{ h.url_for('blocksmith.editor') }}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+        </li>
+    {% endif %}
+
+    {{ super() }}
+{% endblock %}

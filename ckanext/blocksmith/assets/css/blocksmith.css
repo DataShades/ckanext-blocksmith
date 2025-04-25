@@ -1,0 +1,17 @@
+.gjs .gjs-editor {
+    border-radius: 4px;
+}
+
+.wrapper.wrapper-blocksmith {
+    min-height: 900px;
+}
+.wrapper.wrapper-blocksmith:before {
+    border-right: unset;
+}
+
+.blocksmith-loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
