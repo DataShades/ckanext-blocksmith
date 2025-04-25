@@ -5,6 +5,7 @@ import ckan.plugins.toolkit as tk
 @tk.blanket.blueprints
 @tk.blanket.actions
 @tk.blanket.auth_functions
+@tk.blanket.validators
 class BlocksmithPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
 

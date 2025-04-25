@@ -16,12 +16,12 @@ class PageModel(tk.BaseModel):
     name = sa.Column(sa.String, unique=True, nullable=False)
     title = sa.Column(sa.Text, nullable=False)
     html = sa.Column(sa.Text)
-    css = sa.Column(sa.Text)
     editor_data = sa.Column(JSONB)
     published = sa.Column(sa.Boolean, default=False)
     order_index = sa.Column(sa.Integer, default=0)
     created_at = sa.Column(sa.DateTime, server_default=sa.func.now())
     modified_at = sa.Column(sa.DateTime, default=sa.func.now(), onupdate=sa.func.now())
+    fullscreen = sa.Column(sa.Boolean, default=False)
 
     @classmethod
     def create(cls, data_dict: dict[str, Any]) -> Self:
@@ -43,7 +43,6 @@ class PageModel(tk.BaseModel):
             "name": self.name,
             "title": self.title,
             "html": self.html,
-            "css": self.css,
             "editor_data": self.editor_data,
             "published": self.published,
             "order_index": self.order_index,
@@ -52,12 +51,12 @@ class PageModel(tk.BaseModel):
         }
 
     @classmethod
-    def get_by_name(cls, name: str) -> Self | None:
-        return model.Session.query(cls).filter(cls.name == name).first()
-
-    @classmethod
-    def get_by_id(cls, id: str) -> Self | None:
-        return model.Session.query(cls).filter(cls.id == id).first()
+    def get(cls, id_or_name: str) -> Self | None:
+        return (
+            model.Session.query(cls)
+            .filter(sa.or_(cls.id == id_or_name, cls.name == id_or_name))
+            .first()
+        )
 
     @classmethod
     def get_all(cls) -> list[Self]:

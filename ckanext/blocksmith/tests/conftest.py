@@ -13,13 +13,13 @@ fake = Faker()
 class PageFactory(factories.CKANFactory):
     class Meta:
         model = blocksmith_model.PageModel
-        action = "blocksmith_page_save"
+        action = "blocksmith_save_page"
 
     name = fake.slug()
     title = fake.sentence()
     html = fake.sentence()
-    css = fake.sentence()
     editor_data = {"fake": "data"}
+    fullscreen = True
     published = True
     order_index = 1
 

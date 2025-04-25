@@ -20,7 +20,7 @@ dependencies = []
 keywords = ["CKAN"]
 
 [project.urls]
-Homepage = "https://github.com/mutantsan/ckanext-blocksmith"
+Homepage = "https://github.com/DataShades/ckanext-blocksmith"
 
 [project.entry-points."ckan.plugins"]
 blocksmith = "ckanext.blocksmith.plugin:BlocksmithPlugin"

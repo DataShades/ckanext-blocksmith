@@ -24,10 +24,10 @@ def upgrade():
         sa.Column("name", sa.String(), nullable=False, unique=True),
         sa.Column("title", sa.Text(), nullable=False),
         sa.Column("html", sa.Text(), nullable=True),
-        sa.Column("css", sa.Text(), nullable=True),
         sa.Column("editor_data", JSONB(), nullable=False),
         sa.Column("published", sa.Boolean(), server_default=sa.false(), nullable=False),
         sa.Column("order_index", sa.Integer(), server_default="0", nullable=False),
+        sa.Column("fullscreen", sa.Boolean(), server_default=sa.false(), nullable=False),
         sa.Column(
             "created_at", sa.DateTime(), server_default=sa.func.now(), nullable=False
         ),
