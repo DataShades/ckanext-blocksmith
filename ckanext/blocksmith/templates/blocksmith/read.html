@@ -6,7 +6,7 @@
 
 {% block breadcrumb_content %}
     {{ super() }}
-    <li><a href="{{ h.url_for('blocksmith.read', page_name=page.name) }}">{{ page.title }}</a></li>
+    <li><a href="{{ h.url_for('blocksmith.read', page_id=page.id) }}">{{ page.title }}</a></li>
 {% endblock %}
 
 {% block main_content %}
@@ -14,8 +14,8 @@
     {% block toolbar %}{{ super() }}{% endblock %}
 
     <div class="wrapper wrapper-blocksmith" style="background-color: #fff;">
-        {% if h.check_access('blocksmith_edit_page', {'name': page.name}) %}
-            <a class="btn btn-outline-primary btn-page-edit" href="{{ h.url_for('blocksmith.edit', page_name=page.name) }}">
+        {% if h.check_access('blocksmith_edit_page', {'id': page.id}) %}
+            <a class="btn btn-outline-primary btn-page-edit" href="{{ h.url_for('blocksmith.edit', page_id=page.id) }}">
                 {{ _("Edit") }}
             </a>
         {% endif %}

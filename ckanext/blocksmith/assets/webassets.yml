@@ -5,6 +5,8 @@ blocksmith-js:
     - js/vendor/grapes.min.js
     - js/vendor/grapes-preset-webpage.min.js
     - js/vendor/grapes-blocks-basic.min.js
+    - js/vendor/grapes-navbar.min.js
+    - js/vendor/grapes-plugin-forms.min.js
     - js/vendor/sweetalert2.min.js
     - js/vendor/tabulator.min.js
 
@@ -23,3 +25,7 @@ blocksmith-css:
     - css/vendor/tabulator-theme.min.css
 
     - css/main.css
+  extra:
+    preload:
+      - base/main
+      - base/ckan

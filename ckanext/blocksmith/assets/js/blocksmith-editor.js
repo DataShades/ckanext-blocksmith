@@ -4,7 +4,7 @@
 ckan.module("blocksmith-editor", function ($) {
     return {
         constants: {
-            fieldNameID: "save-page-name",
+            fieldUrlID: "save-page-url",
             fieldTitleID: "save-page-title",
             fieldFullscreenID: "save-page-fullscreen",
             fieldPublishedID: "save-page-published",
@@ -55,8 +55,8 @@ ckan.module("blocksmith-editor", function ($) {
                 </div>
 
                 <div class="form-group control-medium">
-                    <label class="form-label">Name</label><br>
-                    <input type="text" id="${this.constants.fieldNameID}" class="form-control" value="${page.name || ""}" />
+                    <label class="form-label">URL</label><br>
+                    <input type="text" id="${this.constants.fieldUrlID}" class="form-control" value="${page.url || ""}" />
                 </div>
 
                 <div class="form-group control-medium">
@@ -79,7 +79,7 @@ ckan.module("blocksmith-editor", function ($) {
         `
         },
         options: {
-            pageName: null
+            pageId: null
         },
         initialize: function () {
             $.proxyAll(this, /_/);
@@ -91,19 +91,19 @@ ckan.module("blocksmith-editor", function ($) {
         },
 
         _loadPageData: function () {
-            if (!this.options.pageName) {
+            if (!this.options.pageId) {
                 return this._initGrapesJS();
             }
 
             $.ajax({
                 method: "GET",
                 url: this.sandbox.client.url("/api/action/blocksmith_get_page"),
-                data: { name: this.options.pageName },
+                data: { id: this.options.pageId },
                 success: (resp) => {
                     this.page = resp.result;
                     this._initGrapesJS();
                 },
-                error: (resp) => {
+                error: (_) => {
                     this._initGrapesJS();
                 }
             });
@@ -115,7 +115,7 @@ ckan.module("blocksmith-editor", function ($) {
                     pages: [{ component: this.defaultContent }]
                 },
                 container: this.el[0],
-                plugins: ["grapesjs-preset-webpage", "gjs-blocks-basic"],
+                plugins: ["grapesjs-preset-webpage", "gjs-blocks-basic", "grapesjs-navbar", "grapesjs-plugin-forms"],
                 pluginsOpts: {
                     "grapesjs-preset-webpage": {
                         textCleanCanvas: "Are you sure you want to clear the canvas?",
@@ -130,6 +130,21 @@ ckan.module("blocksmith-editor", function ($) {
                             "text",
                             "link",
                             "image", "video", "map"]
+                    },
+                    "grapesjs-navbar": {
+                        classPrefix: "gjs-navbar"
+                    },
+                    "grapesjs-plugin-forms": {
+                        blocks: [
+                            "form",
+                            "input",
+                            "textarea",
+                            "select",
+                            "button",
+                            "label",
+                            "checkbox",
+                            "radio"
+                        ]
                     }
                 }
             });
@@ -172,8 +187,8 @@ ckan.module("blocksmith-editor", function ($) {
                 .addEventListener("blur", this._onTitleBlur);
 
             container
-                .querySelector(`#${this.constants.fieldNameID}`)
-                .addEventListener("blur", this._onNameBlur);
+                .querySelector(`#${this.constants.fieldUrlID}`)
+                .addEventListener("blur", this._onUrlBlur);
         },
 
         _onPageSave: function (editor, container) {
@@ -201,7 +216,7 @@ ckan.module("blocksmith-editor", function ($) {
                 },
                 success: (resp) => {
                     if (resp.success) {
-                        window.location.href = `/page/${resp.result.name}`;
+                        window.location.href = this.sandbox.client.url(resp.result.url);
                     } else {
                         console.error(resp);
                     }
@@ -211,11 +226,11 @@ ckan.module("blocksmith-editor", function ($) {
 
         _getFormData: function (container) {
             const title = container.querySelector(`#${this.constants.fieldTitleID}`).value;
-            const name = container.querySelector(`#${this.constants.fieldNameID}`).value;
+            const url = container.querySelector(`#${this.constants.fieldUrlID}`).value;
             const fullscreen = container.querySelector(`#${this.constants.fieldFullscreenID}`).value;
             const fullHtml = this._getFullHtml(this.editor);
             const editorData = this.editor.getProjectData();
-            const published = container.querySelector(`#${this.constants.fieldPublishedID}`).value;
+            const published = container.querySelector(`#${this.constants.fieldPublishedID}`).checked ? "yes" : "no";
             const formData = new FormData();
 
             if (this.page) {
@@ -223,11 +238,12 @@ ckan.module("blocksmith-editor", function ($) {
             }
 
             formData.append("title", title);
-            formData.append("name", name);
+            formData.append("url", url);
             formData.append("fullscreen", fullscreen);
             formData.append("html", fullHtml);
             formData.append("data", JSON.stringify(editorData));
             formData.append("published", published);
+
             return formData;
         },
 
@@ -240,7 +256,7 @@ ckan.module("blocksmith-editor", function ($) {
         _validateSaveForm: function (container) {
             const fields = [
                 container.querySelector(`#${this.constants.fieldTitleID}`),
-                container.querySelector(`#${this.constants.fieldNameID}`)
+                container.querySelector(`#${this.constants.fieldUrlID}`)
             ];
 
             return fields.every(field => {
@@ -258,7 +274,25 @@ ckan.module("blocksmith-editor", function ($) {
          * @returns {string}
          */
         _onTitleBlur: function (e) {
-            console.log(e.target.value);
+            document.querySelector(`#${this.constants.fieldUrlID}`).value = this._slugify(e.target.value);
+        },
+
+        /**
+         * Convert a string to a URL-friendly slug.
+         *
+         * Allow slashes, dashes, and underscores.
+         *
+         * @param {string} text
+         *
+         * @returns {string}
+         */
+        _slugify: function (text) {
+            return text
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9\/\-_]+/g, '-')  // Replace non-allowed chars with dash
+                .replace(/^-+|-+$/g, '')      // Trim leading/trailing dashes
+                .replace(/\/+/g, '/');        // Replace multiple slashes with single slash
         },
 
         /**
@@ -268,12 +302,8 @@ ckan.module("blocksmith-editor", function ($) {
          *
          * @returns {string}
          */
-        _onNameBlur: function (e) {
-            e.target.value = e.target.value
-                .toLowerCase()
-                .trim()
-                .replace(/[^a-z0-9]+/g, '-')   // Replace non-alphanum with dash
-                .replace(/^-+|-+$/g, '');      // Trim leading/trailing dashes
+        _onUrlBlur: function (e) {
+            e.target.value = this._slugify(e.target.value);
         }
     }
 });

@@ -6,7 +6,7 @@ from ckan.types import Context
 
 import ckanext.blocksmith.model as model
 
-blocksmith_blueprint = Blueprint("blocksmith", __name__)
+blocksmith_blueprint = Blueprint("blocksmith", __name__, url_prefix="/blocksmith")
 
 
 def make_context() -> Context:
@@ -27,14 +27,14 @@ class EditorView(MethodView):
 
 
 class ReadView(MethodView):
-    def get(self, page_name: str):
-        page = model.PageModel.get(page_name)
+    def get(self, page_id: str):
+        page = model.PageModel.get_by_id(page_id)
 
         if not page:
             return tk.abort(404, "Page not found")
 
         try:
-            tk.check_access("blocksmith_get_page", make_context(), {"name": page_name})
+            tk.check_access("blocksmith_get_page", make_context(), {"id": page_id})
         except tk.NotAuthorized:
             return tk.abort(404, "Page not found")
 
@@ -48,11 +48,11 @@ class ReadView(MethodView):
 
 
 class EditView(MethodView):
-    def get(self, page_name: str):
-        page = model.PageModel.get(page_name)
+    def get(self, page_id: str):
+        page = model.PageModel.get_by_id(page_id)
 
         try:
-            tk.check_access("blocksmith_edit_page", make_context(), {"name": page_name})
+            tk.check_access("blocksmith_edit_page", make_context(), {"id": page_id})
         except tk.NotAuthorized:
             return tk.abort(404, "Page not found")
 
@@ -74,15 +74,7 @@ class ListView(MethodView):
         return tk.render("blocksmith/list.html", extra_vars={"pages": pages})
 
 
-blocksmith_blueprint.add_url_rule(
-    "/blocksmith/create", view_func=EditorView.as_view("create")
-)
-blocksmith_blueprint.add_url_rule(
-    "/blocksmith/edit/<page_name>", view_func=EditView.as_view("edit")
-)
-blocksmith_blueprint.add_url_rule(
-    "/page/<page_name>", view_func=ReadView.as_view("read")
-)
-blocksmith_blueprint.add_url_rule(
-    "/blocksmith/list", view_func=ListView.as_view("list")
-)
+blocksmith_blueprint.add_url_rule("/create", view_func=EditorView.as_view("create"))
+blocksmith_blueprint.add_url_rule("/edit/<page_id>", view_func=EditView.as_view("edit"))
+blocksmith_blueprint.add_url_rule("/read/<page_id>", view_func=ReadView.as_view("read"))
+blocksmith_blueprint.add_url_rule("/list", view_func=ListView.as_view("list"))

@@ -1,3 +1,5 @@
+$color-active: #206b82;
+
 #blocksmith-tabulator {
     margin: 0;
 
@@ -9,13 +11,15 @@
 
             .tabulator-paginator {
                 .tabulator-page {
+                    border-radius: 0.25rem;
                     padding: 6px 12px;
 
+                    &.active,
                     &:hover,
                     &:focus,
                     &:active {
-                        background-color: #206b82;
-                        border-color: #206b82;
+                        background-color: $color-active;
+                        border-color: $color-active;
                         color: #fff;
                     }
                 }
@@ -37,6 +41,11 @@
     left: 16px;
     max-width: 15rem;
     width: 100%;
+
+    #blocksmith-search {
+        border: 1px solid #aaa;
+        box-shadow: unset;
+    }
 
     #blocksmith-clear {
         display: none;

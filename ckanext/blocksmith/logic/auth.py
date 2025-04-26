@@ -26,9 +26,9 @@ def blocksmith_delete_page(context: Context, data_dict: DataDict) -> AuthResult:
 
 @tk.auth_allow_anonymous_access
 def blocksmith_get_page(context: Context, data_dict: DataDict) -> AuthResult:
-    page_name = tk.get_or_bust(data_dict, "name")
+    page_id = tk.get_or_bust(data_dict, "id")
 
-    page = model.PageModel.get(page_name)
+    page = model.PageModel.get_by_id(page_id)
 
     if page and page.published:
         return {"success": True}

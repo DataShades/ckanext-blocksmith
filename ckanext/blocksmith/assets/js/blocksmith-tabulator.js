@@ -50,7 +50,7 @@ ckan.module("blocksmith-tabulator", function ($) {
             this.pageData = data.result.map(page => ({
                 id: page.id,
                 title: page.title,
-                name: page.name,
+                url: page.url,
                 created: new Date(page.created_at + 'Z').toLocaleString(),
                 modified: new Date(page.modified_at + 'Z').toLocaleString(),
                 fullscreen: page.fullscreen ? "Yes" : "No",
@@ -79,7 +79,7 @@ ckan.module("blocksmith-tabulator", function ($) {
             return [
                 { title: 'ID', field: 'id', visible: false },
                 { title: this._("Title"), field: 'title', resizable: true},
-                { title: this._("Name"), field: 'name', resizable: true},
+                { title: this._("URL"), field: 'url', resizable: true},
                 { title: this._("Created"), field: 'created', resizable: false, maxWidth: 160 },
                 { title: this._("Modified"), field: 'modified', resizable: false, maxWidth: 160 },
                 { title: this._("Fullscreen"), field: 'fullscreen', resizable: false, maxWidth: 120 },
@@ -104,8 +104,8 @@ ckan.module("blocksmith-tabulator", function ($) {
          * @returns {String} The formatted action cell
          */
         _formatActionCell: function (rowData) {
-            const readUrl = this.sandbox.client.url('/page/' + rowData.name);
-            const editUrl = this.sandbox.client.url('/blocksmith/edit/' + rowData.name);
+            const readUrl = this.sandbox.client.url('/blocksmith/read/' + rowData.id);
+            const editUrl = this.sandbox.client.url('/blocksmith/edit/' + rowData.id);
 
             return `
                 <div class="d-flex gap-2">
@@ -177,7 +177,7 @@ ckan.module("blocksmith-tabulator", function ($) {
                     self.table.setFilter((row) => {
                         return [
                             row.title,
-                            row.name,
+                            row.url,
                             row.created,
                             row.modified,
                             row.fullscreen,

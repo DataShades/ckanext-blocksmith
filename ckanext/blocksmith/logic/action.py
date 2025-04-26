@@ -27,7 +27,7 @@ def blocksmith_get_page(
 ) -> blocksmith_types.Page:
     tk.check_access("blocksmith_get_page", context, data_dict)
 
-    page = cast(model.PageModel, model.PageModel.get(data_dict["name"]))
+    page = cast(model.PageModel, model.PageModel.get_by_id(data_dict["id"]))
 
     return page.dictize(context)
 
@@ -38,7 +38,7 @@ def blocksmith_update_page(
 ) -> blocksmith_types.Page:
     tk.check_access("blocksmith_update_page", context, data_dict)
 
-    page = model.PageModel.get(data_dict["id"])
+    page = model.PageModel.get_by_id(data_dict["id"])
 
     if not page:
         raise tk.ObjectNotFound("Page not found")
@@ -63,7 +63,7 @@ def blocksmith_delete_page(
 ) -> types.ActionResult.AnyDict:
     tk.check_access("blocksmith_delete_page", context, data_dict)
 
-    page = cast(model.PageModel, model.PageModel.get(data_dict["id"]))
+    page = cast(model.PageModel, model.PageModel.get_by_id(data_dict["id"]))
 
     page.delete()
 

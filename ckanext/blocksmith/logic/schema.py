@@ -10,17 +10,16 @@ Schema = Dict[str, Any]
 @validator_args
 def blocksmith_create_page(
     not_empty,
-    name_validator,
     boolean_validator,
-    if_empty_same_as,
+    blocksmith_url_is_unique,
     unicode_safe,
     ignore,
     default,
 ) -> Schema:
 
     return {
-        "name": [not_empty, unicode_safe, name_validator],
-        "title": [if_empty_same_as("name"), unicode_safe],
+        "url": [not_empty, unicode_safe, blocksmith_url_is_unique],
+        "title": [not_empty, unicode_safe],
         "html": [not_empty, unicode_safe],
         "data": [not_empty, unicode_safe],
         "published": [default(False), boolean_validator],
@@ -31,14 +30,14 @@ def blocksmith_create_page(
 
 @validator_args
 def blocksmith_get_page(not_empty, unicode_safe, blocksmith_page_exists) -> Schema:
-    return {"name": [not_empty, unicode_safe, blocksmith_page_exists]}
+    return {"id": [not_empty, unicode_safe, blocksmith_page_exists]}
 
 
 @validator_args
 def blocksmith_update_page(
     not_empty,
     unicode_safe,
-    name_validator,
+    blocksmith_url_is_unique,
     blocksmith_page_exists,
     boolean_validator,
     ignore,
@@ -47,7 +46,7 @@ def blocksmith_update_page(
     return {
         "id": [not_empty, unicode_safe, blocksmith_page_exists],
         "title": [ignore_empty, unicode_safe],
-        "name": [ignore_empty, unicode_safe, name_validator],
+        "url": [ignore_empty, unicode_safe, blocksmith_url_is_unique],
         "html": [ignore_empty, unicode_safe],
         "data": [ignore_empty, unicode_safe],
         "published": [ignore_empty, boolean_validator],

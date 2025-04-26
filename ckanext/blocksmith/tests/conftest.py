@@ -16,7 +16,7 @@ class PageFactory(factories.CKANFactory):
         model = blocksmith_model.PageModel
         action = "blocksmith_create_page"
 
-    name = factory.LazyFunction(lambda: fake.unique.slug())
+    url = factory.LazyFunction(lambda: fake.unique.slug())
     title = factory.LazyFunction(lambda: fake.sentence())
     html = "<p>Hello, world!</p>"
     data = '{"assets":[],"styles":[{"selectors":["#i5m5"],"style":{"padding":"10px"}}],"pages":[{"frames":[{"component":{"type":"wrapper","stylable":["background","background-color","background-image","background-repeat","background-attachment","background-position","background-size"],"attributes":{"id":"i41k"},"components":[{"type":"text","attributes":{"id":"i5m5"},"components":[{"type":"textnode","content":"Hello world"}]}],"head":{"type":"head"},"docEl":{"tagName":"html"}},"id":"iCHoiKaDRa2yMcto"}],"id":"WfDsiGNwJKoQUCMN"}],"symbols":[],"dataSources":[]}'

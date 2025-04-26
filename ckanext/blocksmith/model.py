@@ -15,7 +15,7 @@ class PageModel(tk.BaseModel):
     __tablename__ = "blocksmith_page"
 
     id = sa.Column(sa.Text, primary_key=True, default=make_uuid)
-    name = sa.Column(sa.String, unique=True, nullable=False)
+    url = sa.Column(sa.String, unique=True, nullable=False)
     title = sa.Column(sa.Text, nullable=False)
     html = sa.Column(sa.Text)
     data = sa.Column(sa.Text)
@@ -41,7 +41,7 @@ class PageModel(tk.BaseModel):
     def dictize(self, context: types.Context) -> blocksmith_types.Page:
         return blocksmith_types.Page(
             id=str(self.id),
-            name=str(self.name),
+            url=str(self.url),
             title=str(self.title),
             html=str(self.html) if self.html else None,
             data=str(self.data) if self.data else None,
@@ -52,12 +52,12 @@ class PageModel(tk.BaseModel):
         )
 
     @classmethod
-    def get(cls, id_or_name: str) -> Self | None:
-        return (
-            model.Session.query(cls)
-            .filter(sa.or_(cls.id == id_or_name, cls.name == id_or_name))
-            .first()
-        )
+    def get_by_id(cls, page_id: str) -> Self | None:
+        return model.Session.query(cls).filter(cls.id == page_id).first()
+
+    @classmethod
+    def get_by_url(cls, page_url: str) -> Self | None:
+        return model.Session.query(cls).filter(cls.url == page_url).first()
 
     @classmethod
     def get_all(cls) -> list[Self]:

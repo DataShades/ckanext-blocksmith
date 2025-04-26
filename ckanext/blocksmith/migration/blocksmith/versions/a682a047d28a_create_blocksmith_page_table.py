@@ -20,7 +20,7 @@ def upgrade():
     op.create_table(
         "blocksmith_page",
         sa.Column("id", sa.Text, primary_key=True, unique=True),
-        sa.Column("name", sa.String(), nullable=False, unique=True),
+        sa.Column("url", sa.String(), nullable=False, unique=True),
         sa.Column("title", sa.Text(), nullable=False),
         sa.Column("html", sa.Text(), nullable=True),
         sa.Column("data", sa.Text(), nullable=True),
