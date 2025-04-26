@@ -16,7 +16,18 @@
     <div class="wrapper wrapper-blocksmith" style="background-color: #fff;">
         {% block primary %}
             <div class="blocksmith-page-content">
-                <div data-module="blocksmith-grid" id="blocksmith-grid"></div>
+                <div data-module="blocksmith-tabulator" id="blocksmith-tabulator">
+                    <span class="blocksmith-loading-indicator">
+                        {% snippet "blocksmith/loading_indicator.html" %}
+                        {{ _("Loading pages...") }}
+                    </span>
+                </div>
+                <div class="blocksmith-search" style="display: none;">
+                    <input id="blocksmith-search" type="text" class="form-control" placeholder="Search...">
+                    <button type="button" id="blocksmith-clear" class="btn btn-sm btn-light">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
             </div>
         {% endblock %}
     </div>

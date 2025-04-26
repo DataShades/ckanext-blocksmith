@@ -111,7 +111,7 @@ ckan.module("blocksmith-editor", function ($) {
 
         _initGrapesJS: function () {
             this.editor = grapesjs.init({
-                projectData: this.page?.data || {
+                projectData: this.page ? JSON.parse(this.page.data) : {
                     pages: [{ component: this.defaultContent }]
                 },
                 container: this.el[0],
@@ -119,7 +119,7 @@ ckan.module("blocksmith-editor", function ($) {
                 pluginsOpts: {
                     "grapesjs-preset-webpage": {
                         textCleanCanvas: "Are you sure you want to clear the canvas?",
-                        modalImportLabel: "How do you want to import your page?"
+                        modalImportContent: editor => this._getFullHtml(editor)
                     },
                     "gjs-blocks-basic": {
                         blocks: [
@@ -142,6 +142,14 @@ ckan.module("blocksmith-editor", function ($) {
             });
 
             this.editor.Commands.add("open-save-modal", this._onSaveButtonClick);
+        },
+
+        _getFullHtml: function (editor) {
+            const fullHtml = `
+                <style>${editor.getCss()}</style>
+                ${editor.getHtml()}
+            `;
+            return fullHtml;
         },
 
         _onSaveButtonClick: function (editor, sender) {
@@ -205,10 +213,7 @@ ckan.module("blocksmith-editor", function ($) {
             const title = container.querySelector(`#${this.constants.fieldTitleID}`).value;
             const name = container.querySelector(`#${this.constants.fieldNameID}`).value;
             const fullscreen = container.querySelector(`#${this.constants.fieldFullscreenID}`).value;
-            const fullHtml = `
-                <style>${this.editor.getCss()}</style>
-                ${this.editor.getHtml()}
-            `;
+            const fullHtml = this._getFullHtml(this.editor);
             const editorData = this.editor.getProjectData();
             const published = container.querySelector(`#${this.constants.fieldPublishedID}`).value;
             const formData = new FormData();

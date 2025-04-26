@@ -5,11 +5,11 @@ blocksmith-js:
     - js/vendor/grapes.min.js
     - js/vendor/grapes-preset-webpage.min.js
     - js/vendor/grapes-blocks-basic.min.js
-    - js/vendor/gridjs.umd.js
     - js/vendor/sweetalert2.min.js
+    - js/vendor/tabulator.min.js
 
     - js/blocksmith-editor.js
-    - js/blocksmith-grid.js
+    - js/blocksmith-tabulator.js
   extra:
     preload:
       - base/main
@@ -19,5 +19,7 @@ blocksmith-css:
   output: ckanext-blocksmith/%(version)s-blocksmith.css
   contents:
     - css/vendor/grapes.min.css
-    - css/vendor/mermaid.min.css
+    - css/vendor/tabulator.min.css
+    - css/vendor/tabulator-theme.min.css
+
     - css/main.css

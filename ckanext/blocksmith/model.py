@@ -61,7 +61,7 @@ class PageModel(tk.BaseModel):
 
     @classmethod
     def get_all(cls) -> list[Self]:
-        return model.Session.query(cls).all()
+        return model.Session.query(cls).order_by(cls.modified_at.desc()).all()
 
     def update(self, data_dict: dict[str, Any]) -> None:
         for key, value in data_dict.items():

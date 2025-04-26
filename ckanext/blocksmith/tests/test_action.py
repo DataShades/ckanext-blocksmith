@@ -11,7 +11,7 @@ class TestCreatePage:
         assert page["html"]
         assert page["data"]
         assert page["published"]
-        assert page["fullscreen"]
+        assert page["fullscreen"] is False
         assert page["created_at"]
         assert page["modified_at"]
 

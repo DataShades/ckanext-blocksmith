@@ -1,0 +1,56 @@
+#blocksmith-tabulator {
+    margin: 0;
+
+    .tabulator-footer {
+        border-top: unset;
+
+        .tabulator-footer-contents {
+            padding: 0;
+
+            .tabulator-paginator {
+                .tabulator-page {
+                    padding: 6px 12px;
+
+                    &:hover,
+                    &:focus,
+                    &:active {
+                        background-color: #206b82;
+                        border-color: #206b82;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+
+    // this is to hide a "Loading..." message that appears when the table is loading
+    // I'm not sure, that something important is lost by hiding it
+    .tabulator-alert {
+        display: none;
+    }
+}
+
+.blocksmith-search {
+    display: flex;
+    position: absolute;
+    bottom: 12px;
+    left: 16px;
+    max-width: 15rem;
+    width: 100%;
+
+    #blocksmith-clear {
+        display: none;
+        position: absolute;
+        right: 0;
+        height: 100%;
+        width: 35px;
+        height: 33px;
+        justify-content: center;
+        top: 1px;
+        right: 0;
+
+        &.search-active {
+            display: flex;
+        }
+    }
+}
