@@ -7,6 +7,9 @@ blocksmith-js:
     - js/vendor/grapes-blocks-basic.min.js
     - js/vendor/grapes-navbar.min.js
     - js/vendor/grapes-plugin-forms.min.js
+    - js/vendor/grapes-blocks-flexbox.min.js
+    - js/vendor/grapes-component-code-editor.min.js
+    - js/vendor/grapes-parser-postcss.min.js
     - js/vendor/sweetalert2.min.js
     - js/vendor/tabulator.min.js
 
@@ -21,6 +24,7 @@ blocksmith-css:
   output: ckanext-blocksmith/%(version)s-blocksmith.css
   contents:
     - css/vendor/grapes.min.css
+    - css/vendor/grapesjs-component-code-editor.min.css
     - css/vendor/tabulator.min.css
     - css/vendor/tabulator-theme.min.css
 

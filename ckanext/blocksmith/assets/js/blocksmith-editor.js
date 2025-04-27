@@ -16,7 +16,7 @@ ckan.module("blocksmith-editor", function ($) {
             </svg>
         `,
         defaultContent: `
-            <div class="page-wrapper" style="font-family: sans-serif; padding: 40px;">
+            <div class="page-wrapper" style="font-family: sans-serif; background: #fff; padding: 40px;">
                 <header style="text-align: center; padding: 20px 0;">
                     <h1 style="margin: 0; font-size: 2.5em;">Welcome to Your Page</h1>
                     <p style="color: #555;">Customize this page with the builder</p>
@@ -79,11 +79,14 @@ ckan.module("blocksmith-editor", function ($) {
         `
         },
         options: {
-            pageId: null
+            pageId: null,
+            defaultContent: null,
+            test: null
         },
         initialize: function () {
             $.proxyAll(this, /_/);
 
+            this.defaultContent = this.options.content || this.defaultContent;
             this.page = null;
             this.editor = null;
 
@@ -115,7 +118,15 @@ ckan.module("blocksmith-editor", function ($) {
                     pages: [{ component: this.defaultContent }]
                 },
                 container: this.el[0],
-                plugins: ["grapesjs-preset-webpage", "gjs-blocks-basic", "grapesjs-navbar", "grapesjs-plugin-forms"],
+                plugins: [
+                    "gjs-blocks-basic",
+                    "grapesjs-preset-webpage",
+                    "grapesjs-navbar",
+                    "grapesjs-plugin-forms",
+                    "grapesjs-blocks-flexbox",
+                    "grapesjs-component-code-editor",
+                    "grapesjs-parser-postcss"
+                ],
                 pluginsOpts: {
                     "grapesjs-preset-webpage": {
                         textCleanCanvas: "Are you sure you want to clear the canvas?",
@@ -129,7 +140,10 @@ ckan.module("blocksmith-editor", function ($) {
                             "column3-7",
                             "text",
                             "link",
-                            "image", "video", "map"]
+                            "image",
+                            "video",
+                            "map"
+                        ]
                     },
                     "grapesjs-navbar": {
                         classPrefix: "gjs-navbar"
@@ -145,8 +159,18 @@ ckan.module("blocksmith-editor", function ($) {
                             "checkbox",
                             "radio"
                         ]
+                    },
+                    "grapesjs-blocks-flexbox": {
+                        stylePrefix: "gjs-",
                     }
-                }
+                },
+            });
+
+            this.editor.Panels.addButton("views", {
+                id: "open-code",
+                className: 'fa fa-code',
+                command: "open-code",
+                attributes: { title: "Open Code" }
             });
 
             this.editor.Panels.addButton("options", {

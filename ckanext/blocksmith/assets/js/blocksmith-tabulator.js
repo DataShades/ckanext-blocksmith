@@ -104,7 +104,7 @@ ckan.module("blocksmith-tabulator", function ($) {
          * @returns {String} The formatted action cell
          */
         _formatActionCell: function (rowData) {
-            const readUrl = this.sandbox.client.url('/blocksmith/read/' + rowData.id);
+            const readUrl = this.sandbox.client.url(rowData.url);
             const editUrl = this.sandbox.client.url('/blocksmith/edit/' + rowData.id);
 
             return `
