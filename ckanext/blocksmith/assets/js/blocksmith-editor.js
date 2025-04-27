@@ -239,11 +239,10 @@ ckan.module("blocksmith-editor", function ($) {
                     'X-CSRFToken': csrf_token
                 },
                 success: (resp) => {
-                    if (resp.success) {
-                        window.location.href = this.sandbox.client.url(resp.result.url);
-                    } else {
-                        console.error(resp);
-                    }
+                    window.location.href = this.sandbox.client.url(resp.result.url);
+                },
+                error: (resp) => {
+                    this._showErrorModal(resp);
                 }
             });
         },
@@ -328,6 +327,25 @@ ckan.module("blocksmith-editor", function ($) {
          */
         _onUrlBlur: function (e) {
             e.target.value = this._slugify(e.target.value);
-        }
+        },
+
+        /**
+         * Show an error modal.
+         *
+         * @param {object} resp
+         */
+        _showErrorModal: function (resp) {
+            const modal = this.editor.Modal;
+            modal.setTitle('Save Error');
+            modal.setContent(`
+                    <div style="padding: 10px;">
+                        <p><strong>There was a problem saving the page.</strong></p>
+                        <pre style="background: white; color: black; padding: 10px; border-radius: 3px;">
+                            ${JSON.stringify(resp.responseJSON, null, 2)}
+                        </pre>
+                    </div>
+                `);
+            modal.open();
+        },
     }
 });
