@@ -1,4 +1,4 @@
-[![Tests](https://github.com/mutantsan/ckanext-blocksmith/workflows/Tests/badge.svg?branch=main)](https://github.com/mutantsan/ckanext-blocksmith/actions)
+[![Pytest](https://github.com/DataShades/ckanext-blocksmith/actions/workflows/test.yml/badge.svg)](https://github.com/DataShades/ckanext-blocksmith/actions/workflows/test.yml)
 
 # ckanext-blocksmith
 
