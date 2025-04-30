@@ -6,7 +6,7 @@ authors = [
 description = "A modern page builder extension for CKAN, powered by GrapesJS"
 name = "ckanext-blocksmith"
 readme = "README.md"
-version = "0.2.0"
+version = "0.2.1"
 
 classifiers = [
   "Development Status :: 4 - Beta",
