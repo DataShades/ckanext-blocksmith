@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
-import ckan.types as types
 import ckan.plugins.toolkit as tk
+import ckan.types as types
 
 import ckanext.blocksmith.model as model
 

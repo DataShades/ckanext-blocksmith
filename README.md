@@ -7,13 +7,17 @@ Blocksmith is a CKAN extension that allows you to create and manage pages using 
 ## Requirements
 
 CKAN 2.10+
-Python 3.9+
+Python 3.10+
 
 ## Installation
 
-To install ckanext-blocksmith:
+Install it from source:
     ```
     pip install -e .
+    ```
+Or use `pypi` to install:
+    ```
+    pip install ckanext-blocksmith
     ```
 
 ## Config settings

@@ -3,9 +3,9 @@ from typing import Any
 import sqlalchemy as sa
 from typing_extensions import Self
 
-import ckan.types as types
 import ckan.model as model
 import ckan.plugins.toolkit as tk
+import ckan.types as types
 from ckan.model.types import make_uuid
 
 import ckanext.blocksmith.types as blocksmith_types

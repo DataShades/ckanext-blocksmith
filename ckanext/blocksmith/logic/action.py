@@ -1,4 +1,4 @@
-from typing import Any, cast
+from typing import cast
 
 import ckan.plugins.toolkit as tk
 from ckan import types
