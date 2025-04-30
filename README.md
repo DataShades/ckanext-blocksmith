@@ -2,9 +2,9 @@
 
 Blocksmith is a CKAN extension that allows you to create and manage pages using a visual editor.
 
-![editor screenshot](docs/images/editor.png)
+![editor screenshot](https://raw.githubusercontent.com/DataShades/ckanext-blocksmith/master/docs/images/editor.png)
 
-![list screenshot](docs/images/list.png)
+![list screenshot](https://raw.githubusercontent.com/DataShades/ckanext-blocksmith/master/docs/images/list.png)
 
 ## Requirements
 
