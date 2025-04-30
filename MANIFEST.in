@@ -1,6 +1,7 @@
 include README.rst
 include LICENSE
 include requirements.txt
+include docs/images/*.png
 recursive-include ckanext/blocksmith *.html *.json *.js *.less *.css *.mo *.yml
 recursive-include ckanext/blocksmith/migration *.ini *.py *.mako
 recursive-include ckanext/blocksmith/public *.*
