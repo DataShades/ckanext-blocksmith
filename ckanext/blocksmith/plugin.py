@@ -9,6 +9,7 @@ from ckanext.blocksmith.middleware import render_page_if_exists
 @tk.blanket.actions
 @tk.blanket.auth_functions
 @tk.blanket.validators
+@tk.blanket.helpers
 class BlocksmithPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IMiddleware, inherit=True)

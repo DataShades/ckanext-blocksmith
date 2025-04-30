@@ -1,5 +1,9 @@
 {% extends "page.html" %}
 
+{% block title %}
+    {{ _("Blocksmith - Edit page") }}
+{% endblock %}
+
 {% block breadcrumb_content %}
     {{ super() }}
     <li><a href="{{ h.url_for('blocksmith.edit', page_id=page.id) }}">{{ page.title }}</a></li>

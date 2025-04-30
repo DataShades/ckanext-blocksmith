@@ -15,37 +15,6 @@ ckan.module("blocksmith-editor", function ($) {
                 <path fill="currentColor" d="M433.9 129.9l-83.9-83.9A48 48 0 0 0 316.1 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V163.9a48 48 0 0 0 -14.1-33.9zM224 416c-35.3 0-64-28.7-64-64 0-35.3 28.7-64 64-64s64 28.7 64 64c0 35.3-28.7 64-64 64zm96-304.5V212c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12V108c0-6.6 5.4-12 12-12h228.5c3.2 0 6.2 1.3 8.5 3.5l3.5 3.5A12 12 0 0 1 320 111.5z"/>
             </svg>
         `,
-        defaultContent: `
-            <div class="page-wrapper" style="font-family: sans-serif; background: #fff; padding: 40px;">
-                <header style="text-align: center; padding: 20px 0;">
-                    <h1 style="margin: 0; font-size: 2.5em;">Welcome to Your Page</h1>
-                    <p style="color: #555;">Customize this page with the builder</p>
-                </header>
-
-                <section class="hero-section" style="background: #f0f4f8; padding: 60px 20px; border-radius: 12px; margin-bottom: 40px;">
-                    <h2 style="margin-bottom: 10px; font-size: 2em;">Hero Section</h2>
-                    <p style="max-width: 600px; margin: auto;">Use this space to make a great first impression. Highlight something important or add a call to action.</p>
-                    <button style="margin-top: 20px; padding: 10px 20px; font-size: 1em; border: none; border-radius: 8px; background-color: #007bff; color: white; cursor: pointer;">
-                        Get Started
-                    </button>
-                </section>
-
-                <section class="content-section" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                    <div style="background: white; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
-                        <h3>Feature One</h3>
-                        <p>Describe a feature or section of your page here.</p>
-                    </div>
-                    <div style="background: white; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
-                        <h3>Feature Two</h3>
-                        <p>Use blocks and drag-and-drop to customize your layout.</p>
-                    </div>
-                    <div style="background: white; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
-                        <h3>Feature Three</h3>
-                        <p>Bring your ideas to life easily with GrapesJS.</p>
-                    </div>
-                </section>
-            </div>
-        `,
         getModalTemplate: function (page) {
             return `
                 <div style="padding: 10px;">
@@ -86,7 +55,6 @@ ckan.module("blocksmith-editor", function ($) {
         initialize: function () {
             $.proxyAll(this, /_/);
 
-            this.defaultContent = this.options.content || this.defaultContent;
             this.page = null;
             this.editor = null;
 
@@ -115,7 +83,7 @@ ckan.module("blocksmith-editor", function ($) {
         _initGrapesJS: function () {
             this.editor = grapesjs.init({
                 projectData: this.page ? JSON.parse(this.page.data) : {
-                    pages: [{ component: this.defaultContent }]
+                    pages: [{ component: this.options.defaultContent }]
                 },
                 container: this.el[0],
                 plugins: [

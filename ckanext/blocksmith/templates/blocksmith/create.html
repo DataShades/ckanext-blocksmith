@@ -1,5 +1,9 @@
 {% extends "page.html" %}
 
+{% block title %}
+    {{ _("Blocksmith - Create page") }}
+{% endblock %}
+
 {% block breadcrumb_content %}
     {{ super() }}
     <li><a href="{{ h.url_for('blocksmith.create') }}">Create page</a></li>
@@ -11,7 +15,7 @@
 
     <div class="wrapper wrapper-blocksmith" style="background-color: #fff;">
         {% block primary %}
-            <div id="gjs" data-module="blocksmith-editor">
+            <div id="gjs" data-module="blocksmith-editor" data-module-default-content="{{ h.blocksmith_get_default_content() }}">
                 <span class="blocksmith-loading-indicator">
                     {% snippet "blocksmith/loading_indicator.html" %}
                     {{ _("Loading editor...") }}
