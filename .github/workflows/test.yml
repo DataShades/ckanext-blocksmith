@@ -1,23 +1,38 @@
-name: Tests
-on: [push, pull_request]
+name: Pytest
+on:
+  workflow_call:
+  workflow_dispatch:
 jobs:
   test:
+    strategy:
+      matrix:
+        include:
+          - ckan-version: "2.11"
+            ckan-image: "2.11-py3.10"
+            experimental: false
+          - ckan-version: "2.10"
+            ckan-image: "2.10-py3.10"
+            experimental: false
+      fail-fast: false
+
+    name: CKAN ${{ matrix.ckan-version }}
     runs-on: ubuntu-latest
     container:
-      image: ckan/ckan-dev:2.9.11-py3.9
+      image: ckan/ckan-dev:${{ matrix.ckan-image }}
       options: --user root
     services:
       solr:
-        image: ckan/ckan-solr:2.10
+        image: ckan/ckan-solr:${{ matrix.ckan-version }}-solr9
       postgres:
-        image: ckan/ckan-postgres-dev:2.10
+        image: ckan/ckan-postgres-dev:${{ matrix.ckan-version }}
+        ports:
+          - 5432:5432
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
       redis:
-          image: redis:3
+          image: redis:7
 
     env:
       CKAN_SQLALCHEMY_URL: postgresql://ckan_default:pass@postgres/ckan_test
