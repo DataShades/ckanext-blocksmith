@@ -1,8 +1,10 @@
 [![Pytest](https://github.com/DataShades/ckanext-blocksmith/actions/workflows/test.yml/badge.svg)](https://github.com/DataShades/ckanext-blocksmith/actions/workflows/test.yml)
 
-# ckanext-blocksmith
-
 Blocksmith is a CKAN extension that allows you to create and manage pages using a visual editor.
+
+![editor screenshot](docs/images/editor.png)
+
+![list screenshot](docs/images/list.png)
 
 ## Requirements
 
@@ -19,10 +21,6 @@ Or use `pypi` to install:
     ```
     pip install ckanext-blocksmith
     ```
-
-## Config settings
-
-None at present
 
 ## License
 
