@@ -27,7 +27,6 @@ def blocksmith_url_is_unique(
 ) -> Any:
     """Ensures that the page with a given url doesn't exist"""
 
-
     result = model.PageModel.get_by_url(data[key])
 
     if not result:
@@ -39,3 +38,50 @@ def blocksmith_url_is_unique(
         return
 
     raise tk.Invalid(f"The page {data[key]} already exists.")
+
+
+def blocksmith_menu_exists(menu_id: str, context: types.Context) -> Any:
+    """Ensures that the menu with a given id exists"""
+
+    if not model.MenuModel.get_by_id(menu_id):
+        raise tk.Invalid(f"The menu {menu_id} doesn't exist.")
+
+    return menu_id
+
+
+def blocksmith_parent_menu_item_exists(
+    key: types.FlattenKey,
+    data: types.FlattenDataDict,
+    errors: types.FlattenErrorDict,
+    context: types.Context,
+) -> Any:
+    """Ensures that the menu item with a given id exists in the same menu"""
+
+    menu_id = data.get(("menu_id",))
+    parent_menu_item_id = data.get(("parent_id",))
+
+    if not menu_id or not parent_menu_item_id:
+        return
+
+    current_menu = model.MenuModel.get_by_id(menu_id)
+    parent_menu_item = model.MenuItemModel.get_by_id(parent_menu_item_id)
+
+    if not parent_menu_item:
+        raise tk.Invalid(f"The menu item {parent_menu_item_id} doesn't exist.")
+
+    if not current_menu:
+        return
+
+    if parent_menu_item.menu_id != current_menu.id:
+        raise tk.Invalid(
+            f"The menu item {parent_menu_item_id} doesn't exist in the same menu."
+        )
+
+
+def blocksmith_name_is_unique(name: str, context: types.Context) -> Any:
+    """Ensures that the name with a given name doesn't exist"""
+
+    if model.MenuModel.get_by_name(name):
+        raise tk.Invalid(f"The name {name} already exists.")
+
+    return name

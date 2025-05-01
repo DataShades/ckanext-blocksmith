@@ -58,3 +58,62 @@ def blocksmith_update_page(
 @validator_args
 def blocksmith_delete_page(not_empty, blocksmith_page_exists) -> Schema:
     return {"id": [not_empty, blocksmith_page_exists]}
+
+
+@validator_args
+def blocksmith_create_menu(
+    not_empty,
+    unicode_safe,
+    name_validator,
+    ignore_empty,
+    ignore,
+    blocksmith_name_is_unique,
+) -> Schema:
+    return {
+        "name": [not_empty, unicode_safe, name_validator, blocksmith_name_is_unique],
+        "__extras": [ignore_empty, ignore],
+    }
+
+
+@validator_args
+def blocksmith_create_menu_item(
+    not_empty,
+    unicode_safe,
+    default,
+    int_validator,
+    ignore_empty,
+    ignore,
+    blocksmith_parent_menu_item_exists,
+    blocksmith_menu_exists,
+) -> Schema:
+    return {
+        "title": [not_empty, unicode_safe],
+        "url": [not_empty, unicode_safe],
+        "order": [default(0), int_validator],
+        "parent_id": [ignore_empty, unicode_safe, blocksmith_parent_menu_item_exists],
+        "classes": [ignore_empty, unicode_safe],
+        "menu_id": [not_empty, unicode_safe, blocksmith_menu_exists],
+        "__extras": [ignore],
+    }
+
+
+@validator_args
+def blocksmith_update_menu(
+    not_empty,
+    unicode_safe,
+    name_validator,
+    ignore_empty,
+    ignore,
+    blocksmith_menu_exists,
+    blocksmith_name_is_unique,
+) -> Schema:
+    return {
+        "id": [not_empty, unicode_safe, blocksmith_menu_exists],
+        "name": [ignore_empty, unicode_safe, name_validator, blocksmith_name_is_unique],
+        "__extras": [ignore_empty, ignore],
+    }
+
+
+@validator_args
+def blocksmith_delete_menu(not_empty, blocksmith_menu_exists) -> Schema:
+    return {"id": [not_empty, blocksmith_menu_exists]}

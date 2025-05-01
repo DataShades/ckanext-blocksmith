@@ -68,3 +68,63 @@ def blocksmith_delete_page(
     page.delete()
 
     return {"success": True}
+
+
+@validate(schema.blocksmith_create_menu)
+def blocksmith_create_menu(
+    context: types.Context, data_dict: types.DataDict
+) -> blocksmith_types.Menu:
+    tk.check_access("blocksmith_manage_menu", context, data_dict)
+
+    menu = model.MenuModel.create(data_dict)
+
+    return menu.dictize(context)
+
+
+@validate(schema.blocksmith_create_menu_item)
+def blocksmith_create_menu_item(
+    context: types.Context, data_dict: types.DataDict
+) -> blocksmith_types.MenuItem:
+    tk.check_access("blocksmith_manage_menu", context, data_dict)
+
+    menu_item = model.MenuItemModel.create(data_dict)
+
+    return menu_item.dictize(context)
+
+
+@tk.side_effect_free
+def blocksmith_list_menus(
+    context: types.Context, data_dict: types.DataDict
+) -> list[blocksmith_types.Menu]:
+    tk.check_access("blocksmith_manage_menu", context, data_dict)
+
+    return [menu.dictize(context) for menu in model.MenuModel.get_all()]
+
+
+@validate(schema.blocksmith_update_menu)
+def blocksmith_update_menu(
+    context: types.Context, data_dict: types.DataDict
+) -> blocksmith_types.Menu:
+    tk.check_access("blocksmith_manage_menu", context, data_dict)
+
+    menu = model.MenuModel.get_by_id(data_dict["id"])
+
+    if not menu:
+        raise tk.ObjectNotFound("Menu not found")
+
+    menu.update(data_dict)
+
+    return menu.dictize(context)
+
+
+@validate(schema.blocksmith_delete_menu)
+def blocksmith_delete_menu(
+    context: types.Context, data_dict: types.DataDict
+) -> types.ActionResult.AnyDict:
+    tk.check_access("blocksmith_manage_menu", context, data_dict)
+
+    menu = cast(model.MenuModel, model.MenuModel.get_by_id(data_dict["id"]))
+
+    menu.delete()
+
+    return {"success": True}

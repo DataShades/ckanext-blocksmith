@@ -71,3 +71,16 @@ class TestListPages:
         assert pages[0]["fullscreen"] == page["fullscreen"]
         assert pages[0]["created_at"] == page["created_at"]
         assert pages[0]["modified_at"] == page["modified_at"]
+
+    def test_list_pages2(self, page):
+        pages = call_action("blocksmith_list_pages")
+
+        assert len(pages) == 1
+        assert pages[0]["url"] == page["url"]
+        assert pages[0]["title"] == page["title"]
+        assert pages[0]["html"] == page["html"]
+        assert pages[0]["data"] == page["data"]
+        assert pages[0]["published"] == page["published"]
+        assert pages[0]["fullscreen"] == page["fullscreen"]
+        assert pages[0]["created_at"] == page["created_at"]
+        assert pages[0]["modified_at"] == page["modified_at"]

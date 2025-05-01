@@ -6,7 +6,7 @@
 
 {% block breadcrumb_content %}
     {{ super() }}
-    <li><a href="{{ h.url_for('blocksmith.list') }}">{{ _("Page List") }}</a></li>
+    <li><a href="{{ h.url_for('bs_page.list') }}">{{ _("Page List") }}</a></li>
 {% endblock %}
 
 {% block main_content %}
@@ -16,7 +16,7 @@
     <div class="wrapper wrapper-blocksmith" style="background-color: #fff;">
         {% block primary %}
             <div class="blocksmith-page-content">
-                <div data-module="blocksmith-tabulator" id="blocksmith-tabulator">
+                <div data-module="blocksmith-pages-list" id="blocksmith-pages-list">
                     <span class="blocksmith-loading-indicator">
                         {% snippet "blocksmith/loading_indicator.html" %}
                         {{ _("Loading pages...") }}

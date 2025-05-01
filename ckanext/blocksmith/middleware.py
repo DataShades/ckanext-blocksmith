@@ -4,7 +4,7 @@ import ckan.plugins.toolkit as tk
 import ckan.types as types
 
 from ckanext.blocksmith.model import PageModel
-from ckanext.blocksmith.views import ReadView, make_context
+from ckanext.blocksmith.views.page import ReadView, make_context
 
 
 def render_page_if_exists(response: types.Response) -> types.Response:

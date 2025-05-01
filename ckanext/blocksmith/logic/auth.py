@@ -37,3 +37,7 @@ def blocksmith_get_page(context: Context, data_dict: DataDict) -> AuthResult:
         return {"success": True}
 
     return {"success": False}
+
+
+def blocksmith_manage_menu(context: Context, data_dict: DataDict) -> AuthResult:
+    return {"success": False}

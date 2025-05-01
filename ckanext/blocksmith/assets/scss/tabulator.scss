@@ -1,6 +1,7 @@
 $color-active: #206b82;
 
-#blocksmith-tabulator {
+#blocksmith-pages-list,
+#blocksmith-menus-list {
     margin: 0;
 
     .tabulator-footer {
@@ -32,6 +33,10 @@ $color-active: #206b82;
     .tabulator-alert {
         display: none;
     }
+}
+
+#blocksmith-menus-list {
+    border-radius: unset;
 }
 
 .blocksmith-search {

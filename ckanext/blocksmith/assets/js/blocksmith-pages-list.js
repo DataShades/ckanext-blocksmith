@@ -1,4 +1,4 @@
-ckan.module("blocksmith-tabulator", function ($) {
+ckan.module("blocksmith-pages-list", function ($) {
     return {
         initialize: function () {
             $.proxyAll(this, /_/);
@@ -8,7 +8,7 @@ ckan.module("blocksmith-tabulator", function ($) {
             this.searchInput = $("#blocksmith-search");
             this.searchClear = $("#blocksmith-clear");
 
-            this.table = new Tabulator("#blocksmith-tabulator", {
+            this.table = new Tabulator("#blocksmith-pages-list", {
                 ajaxURL: this.sandbox.client.url('/api/action/blocksmith_list_pages'),
                 ajaxResponse: (url, params, response) => {
                     return this._prepareData(response);
@@ -105,7 +105,7 @@ ckan.module("blocksmith-tabulator", function ($) {
          */
         _formatActionCell: function (rowData) {
             const readUrl = this.sandbox.client.url(rowData.url);
-            const editUrl = this.sandbox.client.url('/blocksmith/edit/' + rowData.id);
+            const editUrl = this.sandbox.client.url('/blocksmith/page/edit/' + rowData.id);
 
             return `
                 <div class="d-flex gap-2">

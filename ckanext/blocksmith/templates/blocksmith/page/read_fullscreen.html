@@ -6,7 +6,7 @@
 
 {% block page %}
     {% if h.check_access('blocksmith_edit_page', {'id': page.id}) %}
-        <a class="btn btn-outline-primary btn-page-edit" href="{{ h.url_for('blocksmith.edit', page_id=page.id) }}">
+        <a class="btn btn-outline-primary btn-page-edit" href="{{ h.url_for('bs_page.edit', page_id=page.id) }}">
             {{ _("Edit") }}
         </a>
     {% endif %}

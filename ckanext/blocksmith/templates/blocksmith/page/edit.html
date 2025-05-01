@@ -1,12 +1,12 @@
 {% extends "page.html" %}
 
 {% block title %}
-    {{ _("Blocksmith - Create page") }}
+    {{ _("Blocksmith - Edit page") }}
 {% endblock %}
 
 {% block breadcrumb_content %}
     {{ super() }}
-    <li><a href="{{ h.url_for('blocksmith.create') }}">Create page</a></li>
+    <li><a href="{{ h.url_for('bs_page.edit', page_id=page.id) }}">{{ page.title }}</a></li>
 {% endblock %}
 
 {% block main_content %}
@@ -15,7 +15,7 @@
 
     <div class="wrapper wrapper-blocksmith" style="background-color: #fff;">
         {% block primary %}
-            <div id="gjs" data-module="blocksmith-editor" data-module-default-content="{{ h.blocksmith_get_default_content() }}">
+            <div id="gjs" data-module="blocksmith-editor" data-module-page-id="{{ page.id }}">
                 <span class="blocksmith-loading-indicator">
                     {% snippet "blocksmith/loading_indicator.html" %}
                     {{ _("Loading editor...") }}

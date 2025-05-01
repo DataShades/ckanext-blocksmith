@@ -34,3 +34,26 @@ def clean_db(reset_db, migrate_db_for):
 @register(_name="sysadmin")
 class SysadminFactory(factories.Sysadmin):
     pass
+
+
+@register(_name="menu")
+class MenuFactory(factories.CKANFactory):
+    class Meta:
+        model = blocksmith_model.MenuModel
+        action = "blocksmith_create_menu"
+
+    name = factory.LazyFunction(lambda: fake.unique.slug())
+
+
+@register(_name="menu_item")
+class MenuItemFactory(factories.CKANFactory):
+    class Meta:
+        model = blocksmith_model.MenuItemModel
+        action = "blocksmith_create_menu_item"
+
+    title = factory.LazyFunction(lambda: fake.sentence())
+    url = factory.LazyFunction(lambda: fake.url())
+    order = 0
+    parent_id = None
+    classes = "some-class some-other-class"
+    menu_id = factory.LazyFunction(lambda: MenuFactory()["id"])

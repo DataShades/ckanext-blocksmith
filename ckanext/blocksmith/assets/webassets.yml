@@ -14,7 +14,9 @@ blocksmith-js:
     - js/vendor/tabulator.min.js
 
     - js/blocksmith-editor.js
-    - js/blocksmith-tabulator.js
+    - js/blocksmith-pages-list.js
+    - js/blocksmith-menus-list.js
+    - js/blocksmith-slugify.js
   extra:
     preload:
       - base/main
