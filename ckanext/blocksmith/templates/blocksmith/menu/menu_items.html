@@ -1,0 +1,49 @@
+{% extends "page.html" %}
+
+{% import 'macros/form.html' as form %}
+
+{% block title %}
+    {{_("Blocksmith - Manage Menu") }}
+{% endblock %}
+
+{% block breadcrumb_content %}
+    {{ super() }}
+    <li><a href="{{ h.url_for('bs_menu.list') }}">{{ _("Menu list") }}</a></li>
+{% endblock %}
+
+{% block wrapper_class %} blocksmith-menu-list {% endblock %}
+
+{% block secondary_content %}
+    <div class="module module-narrow module-shallow">
+        <h2 class="module-heading">
+            <i class="fa fa-info-circle"></i>
+            {{_("Blocksmith - Menus") }}
+        </h2>
+        <div class="module-content">
+            <p>{{_("This is a menu edit page where you can create, delete and update menu items.") }}</p>
+            <p>{{_("You can also reorder them by dragging and dropping.") }}</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block primary_content %}
+    <div class="blocksmith-page-content">
+        <div class="module module-narrow module-shallow">
+            <div class="module-content">
+                {{ menu }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{%- block styles %}
+    {% asset 'blocksmith/blocksmith-css' %}
+
+    {{ super() }}
+{% endblock %}
+
+{%- block scripts %}
+    {% asset 'blocksmith/blocksmith-js' %}
+
+    {{ super() }}
+{% endblock %}

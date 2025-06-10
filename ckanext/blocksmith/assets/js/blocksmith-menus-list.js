@@ -154,7 +154,7 @@ ckan.module("blocksmith-menus-list", function ($) {
             const rowData = cell.getData();
             const rowIndex = cell.getRow().getIndex();
 
-            const itemsUrl = this.sandbox.client.url('/blocksmith/menu/items/' + rowData.id);
+            const itemsUrl = this.sandbox.client.url('/blocksmith/menu/' + rowData.name);
 
             return `
                 <div class="d-flex gap-2">

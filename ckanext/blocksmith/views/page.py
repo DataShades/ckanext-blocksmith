@@ -5,6 +5,8 @@ import ckan.plugins.toolkit as tk
 from ckan.types import Context
 
 import ckanext.blocksmith.model as model
+from ckanext.blocksmith.tags import process_tags
+
 
 bs_page_blueprint = Blueprint("bs_page", __name__, url_prefix="/blocksmith/page")
 
@@ -32,6 +34,8 @@ class ReadView(MethodView):
 
         if not page:
             return tk.abort(404, "Page not found")
+
+        page.html = process_tags(page.html)  # type: ignore
 
         try:
             tk.check_access("blocksmith_get_page", make_context(), {"id": page_id})

@@ -1,7 +1,15 @@
 /**
  * Initialize the GrapesJS editor
  */
+console.log(1)
+
+// here we set default vars
+// ckan.sandbox.extend({blocksmith: () => 2})
+
 ckan.module("blocksmith-editor", function ($) {
+    console.log(2)
+    // here people can add/update options for grapejs
+
     return {
         constants: {
             fieldUrlID: "save-page-url",
@@ -81,6 +89,9 @@ ckan.module("blocksmith-editor", function ($) {
         },
 
         _initGrapesJS: function () {
+            // ckan.sandbox.blocksmith.options.plugins
+            // ckan.sandbox.blocksmith.options.pluginsOpts
+
             this.editor = grapesjs.init({
                 projectData: this.page ? JSON.parse(this.page.data) : {
                     pages: [{ component: this.options.defaultContent }]

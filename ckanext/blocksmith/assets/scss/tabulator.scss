@@ -61,7 +61,9 @@ $color-active: #206b82;
         height: 33px;
         justify-content: center;
         top: 1px;
-        right: 0;
+        right: 1px;
+        border: unset;
+        box-shadow: unset;
 
         &.search-active {
             display: flex;
