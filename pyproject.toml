@@ -2,6 +2,7 @@
 authors = [
   {name = "DataShades", email = "datashades@linkdigital.com.au"},
   {name = "Oleksandr Cherniavskiy", email = "mutantsan@gmail.com"},
+  {name = "Yan Rudenko", email = "yan.rudenko@gmail.com"},
 ]
 description = "A modern page builder extension for CKAN, powered by GrapesJS"
 name = "ckanext-blocksmith"
@@ -18,7 +19,7 @@ classifiers = [
 license = {text = "AGPL"}
 
 dependencies = [
-  'beautifulsoup4>=4.8.2'
+  'beautifulsoup4>=4.8.2,<5.0.0'
 ]
 
 keywords = ["CKAN"]

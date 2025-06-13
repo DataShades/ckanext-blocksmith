@@ -1,4 +1,4 @@
-{% extends "page.html" %}
+{% extends "blocksmith/page.html" %}
 
 {% block title %}
     {{ _("Blocksmith - Create page") }}
@@ -23,11 +23,6 @@
             </div>
         {% endblock %}
     </div>
-{% endblock %}
-
-{%- block styles %}
-    {% asset 'blocksmith/blocksmith-css' %}
-    {{ super() }}
 {% endblock %}
 
 {%- block scripts %}

@@ -1,0 +1,20 @@
+.account-masthead .account {
+    .blocksmith-dropdown {
+        border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
+
+        li {
+            width: 100%;
+            border: unset;
+
+            a {
+                font-weight: normal;
+                color: var(--bs-dropdown-link-color);
+
+                &:hover {
+                    background-color: var(--bs-dropdown-link-hover-bg);
+                    color: var(--bs-dropdown-link-color)
+                }
+            }
+        }
+    }
+}

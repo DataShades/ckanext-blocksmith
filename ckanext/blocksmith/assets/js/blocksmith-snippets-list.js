@@ -21,9 +21,7 @@ ckan.module("blocksmith-snippets-list", function ($) {
                 resizableRows: false,
                 height: "100%",
                 maxHeight: "100%",
-                // minHeight: "900",
                 placeholder: this._("No snippets found"),
-
             });
 
             // Event listeners
@@ -121,7 +119,7 @@ ckan.module("blocksmith-snippets-list", function ($) {
         /**
          * Delete a snippet
          *
-         * @param {String} snippetId The snippet id
+         * @param {Event} e The event
          */
         _onSnippetDelete: function (e) {
             const snippetId = $(e.currentTarget).data('id');
@@ -145,12 +143,12 @@ ckan.module("blocksmith-snippets-list", function ($) {
                     "POST",
                     "blocksmith_delete_snippet",
                     { id: snippetId },
-                    function (data) {
-                        Swal.fire("snippet has been deleted", "", "success");
+                    function (_) {
+                        Swal.fire("The snippet has been deleted", "", "success");
                         self.table.replaceData(); // Reload
                     },
-                    function (err) {
-                        Swal.fire("Unable to delete snippet", "", "error");
+                    function (_) {
+                        Swal.fire("Unable to delete the snippet", "", "error");
                     }
                 );
             });

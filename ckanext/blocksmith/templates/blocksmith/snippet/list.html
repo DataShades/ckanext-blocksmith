@@ -32,14 +32,8 @@
     </div>
 {% endblock %}
 
-{%- block styles %}
-    {% asset 'blocksmith/blocksmith-css' %}
-
-    {{ super() }}
-{% endblock %}
-
 {%- block scripts %}
     {% asset 'blocksmith/blocksmith-js' %}
 
     {{ super() }}
-{% endblock %}
+{% endblock -%}

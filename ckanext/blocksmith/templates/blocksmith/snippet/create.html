@@ -1,4 +1,5 @@
-{% extends "page.html" %}
+{% extends "blocksmith/page.html" %}
+
 {% import 'macros/form.html' as form %}
 
 {% block title %}
@@ -7,7 +8,7 @@
 
 {% block breadcrumb_content %}
     {{ super() }}
-    <li><a href="{{ h.url_for('bs_snippet.create') }}">Create Snippet</a></li>
+    <li><a href="{{ h.url_for('bs_snippet.create') }}">{{ _("Create Snippet") }}</a></li>
 {% endblock %}
 
 {% block main_content %}
@@ -23,12 +24,8 @@
     </div>
 {% endblock %}
 
-{%- block styles %}
-    {% asset 'blocksmith/blocksmith-css' %}
-    {{ super() }}
-{% endblock %}
-
 {%- block scripts %}
     {% asset 'blocksmith/blocksmith-js' %}
+
     {{ super() }}
 {% endblock -%}

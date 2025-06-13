@@ -1,4 +1,4 @@
-{% extends "page.html" %}
+{% extends "blocksmith/page.html" %}
 
 {% import 'macros/form.html' as form %}
 
@@ -46,12 +46,6 @@
             </button>
         </div>
     </div>
-{% endblock %}
-
-{%- block styles %}
-    {% asset 'blocksmith/blocksmith-css' %}
-
-    {{ super() }}
 {% endblock %}
 
 {%- block scripts %}
