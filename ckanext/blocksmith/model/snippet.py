@@ -1,9 +1,8 @@
+
 import sqlalchemy as sa
-from typing_extensions import Self
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.mutable import MutableDict
-from sqlalchemy.orm import Mapped
-from typing import Any
+from typing_extensions import Self
 
 import ckan.model as model
 import ckan.plugins.toolkit as tk

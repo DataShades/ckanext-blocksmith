@@ -1,10 +1,10 @@
 from flask import Blueprint
 from flask.views import MethodView
 
+import ckan.lib.navl.dictization_functions as dict_fns
+import ckan.logic as logic
 import ckan.plugins.toolkit as tk
 from ckan.types import Context
-import ckan.logic as logic
-import ckan.lib.navl.dictization_functions as dict_fns
 
 import ckanext.blocksmith.model as model
 import ckanext.blocksmith.utils as bs_utils

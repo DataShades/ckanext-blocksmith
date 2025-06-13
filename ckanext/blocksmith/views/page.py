@@ -7,7 +7,6 @@ from ckan.types import Context
 import ckanext.blocksmith.model as model
 from ckanext.blocksmith.tags import process_tags
 
-
 bs_page_blueprint = Blueprint("bs_page", __name__, url_prefix="/blocksmith/page")
 
 
