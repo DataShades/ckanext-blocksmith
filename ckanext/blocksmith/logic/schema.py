@@ -152,7 +152,12 @@ def blocksmith_update_snippet(
     return {
         "id": [not_empty, unicode_safe, blocksmith_snippet_exists],
         "title": [ignore_empty, unicode_safe],
-        "name": [ignore_empty, unicode_safe, name_validator, blocksmith_snippet_name_is_unique],
+        "name": [
+            ignore_empty,
+            unicode_safe,
+            name_validator,
+            blocksmith_snippet_name_is_unique,
+        ],
         "html": [ignore_empty, unicode_safe],
         "extras": [ignore_empty, json_object],
         "__extras": [ignore],
@@ -160,7 +165,9 @@ def blocksmith_update_snippet(
 
 
 @validator_args
-def blocksmith_get_snippet(not_empty, unicode_safe, blocksmith_snippet_exists) -> Schema:
+def blocksmith_get_snippet(
+    not_empty, unicode_safe, blocksmith_snippet_exists
+) -> Schema:
     return {"id": [not_empty, unicode_safe, blocksmith_snippet_exists]}
 
 

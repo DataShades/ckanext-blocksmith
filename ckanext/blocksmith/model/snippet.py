@@ -33,7 +33,7 @@ class SnippetModel(tk.BaseModel, BaseModelMixin):
             html=str(self.html) if self.html else None,
             created_at=self.created_at.isoformat(),
             modified_at=self.modified_at.isoformat(),
-            extras=self.extras, # type: ignore
+            extras=self.extras,  # type: ignore
         )
 
     @classmethod

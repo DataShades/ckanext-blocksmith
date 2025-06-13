@@ -10,8 +10,10 @@ import ckan.plugins.toolkit as tk
 class BaseOption:
     pass
 
+
 class ListOption(BaseOption):
     pass
+
 
 class BaseTag:
     def __init__(self, **kwargs):

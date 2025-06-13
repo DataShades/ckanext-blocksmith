@@ -12,7 +12,7 @@ def blocksmith_get_default_content() -> str:
 
 def bs_render_snippet(name, **kwargs):
     snippet = bs_utils.load_snippet(name)
-    
+
     if not snippet:
         return None
 

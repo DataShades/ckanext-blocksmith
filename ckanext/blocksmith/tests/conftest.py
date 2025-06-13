@@ -30,7 +30,7 @@ class SnippetFactory(factories.CKANFactory):
         model = blocksmith_model.SnippetModel
         action = "blocksmith_create_snippet"
 
-    name = factory.LazyFunction(lambda: fake.sentence(3).replace(' ', '_'))
+    name = factory.LazyFunction(lambda: fake.sentence(3).replace(" ", "_"))
     title = factory.LazyFunction(lambda: fake.sentence())
     html = "<p>Hello, world!</p>"
 

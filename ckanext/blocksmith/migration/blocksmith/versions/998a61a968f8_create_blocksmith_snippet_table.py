@@ -5,14 +5,15 @@ Revises: 4dda752c7953
 Create Date: 2025-06-11 20:15:38.231531
 
 """
+
 from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 
 # revision identifiers, used by Alembic.
-revision = '998a61a968f8'
-down_revision = '4dda752c7953'
+revision = "998a61a968f8"
+down_revision = "4dda752c7953"
 branch_labels = None
 depends_on = None
 
@@ -30,9 +31,7 @@ def upgrade():
         sa.Column(
             "modified_at", sa.DateTime(), server_default=sa.func.now(), nullable=False
         ),
-        sa.Column(
-            "extras", postgresql.JSONB(astext_type=sa.Text()), nullable=True
-        ),
+        sa.Column("extras", postgresql.JSONB(astext_type=sa.Text()), nullable=True),
     )
 
 

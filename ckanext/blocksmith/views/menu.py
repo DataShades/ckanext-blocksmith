@@ -44,4 +44,6 @@ class MenuItems(MethodView):
 
 
 bs_menu_blueprint.add_url_rule("/menu_list", view_func=MenuListView.as_view("list"))
-bs_menu_blueprint.add_url_rule("/menu/<menu_name>", view_func=MenuItems.as_view("items"))
+bs_menu_blueprint.add_url_rule(
+    "/menu/<menu_name>", view_func=MenuItems.as_view("items")
+)
