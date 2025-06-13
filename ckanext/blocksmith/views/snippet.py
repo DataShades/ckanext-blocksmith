@@ -60,28 +60,33 @@ class EditorView(MethodView):
 
 
 class ReadView(MethodView):
+    def _check_access(self, snippet_id: str):
+        try:
+            tk.check_access(
+                "blocksmith_edit_snippet", make_context(), {"id": snippet_id}
+            )
+        except tk.NotAuthorized:
+            return tk.abort(404, "Snippet not found")
+
     def get(self, snippet_id: str):
         snippet = model.SnippetModel.get_by_id(snippet_id)
 
         if not snippet:
             return tk.abort(404, "Page not found")
 
-        try:
-            tk.check_access(
-                "blocksmith_edit_snippet", make_context(), {"id": snippet_id}
-            )
-        except tk.NotAuthorized:
-            return tk.abort(404, "Page not found")
+        self._check_access(snippet_id)
 
         return tk.render(
             "blocksmith/snippet/read.html", extra_vars={"snippet": snippet}
         )
 
     def post(self, snippet_id: str):
-        try:
-            tk.check_access("blocksmith_edit_snippet", make_context(), {})
-        except tk.NotAuthorized:
+        snippet = model.SnippetModel.get_by_id(snippet_id)
+
+        if not snippet:
             return tk.abort(404, "Page not found")
+
+        self._check_access(snippet_id)
 
         try:
             data_dict = logic.clean_dict(
@@ -92,7 +97,8 @@ class ReadView(MethodView):
         except dict_fns.DataError:
             return tk.base.abort(400, tk._("Integrity Error"))
 
-        extra_vars = {"data": data_dict, "name": data_dict.pop("name")}
+        extra_vars = {"data": data_dict, "name": snippet.name}
+
         try:
             return tk.render(
                 "blocksmith/snippet/snippets/snippet_preview.html",

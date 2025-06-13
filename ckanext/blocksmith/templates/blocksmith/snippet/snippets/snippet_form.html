@@ -1,7 +1,7 @@
 <form action="" method="post">
     {{ h.csrf_input() }}
 
-    <div class="border rounded p-4 mb-4">
+    <div class="border rounded p-3 mb-4">
         <h3 class="mb-4">
             {{ _("Snippet Configuration") }}
         </h3>
@@ -31,7 +31,7 @@
     <div class="accordion mb-4" id="arguments-acc">
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="px-4 accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                <button class="px-3 accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#arguments-acc-collapse" aria-expanded="false"
                     aria-controls="arguments-acc-collapse">
                     <h3 class="m-0">
@@ -62,11 +62,9 @@
         </div>
     </div>
 
-    <div class="border p-4 rounded mb-4">
-        <h3 class="mb-4">{{ _("Code") }}</h3>
-        <textarea data-module="blocksmith-codemirror" name="html" id="html">
-            {{ data.get('html', '') }}
-        </textarea>
+    <div class="border p-3 rounded mb-4">
+        <h3>{{ _("Code") }}</h3>
+        <textarea data-module="blocksmith-codemirror" name="html" id="html">{{ data.get('html', '').strip() }}</textarea>
     </div>
     <div class="d-flex align-items-center">
         <button class="btn btn-primary me-3" type="submit">

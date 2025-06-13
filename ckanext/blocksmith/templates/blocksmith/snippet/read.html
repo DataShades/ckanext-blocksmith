@@ -13,60 +13,66 @@
     {% block flash %}{{ super() }}{% endblock %}
     {% block toolbar %}{{ super() }}{% endblock %}
 
-    <div class="wrapper wrapper-blocksmith" style="background-color: #fff;">
-        {% if h.check_access('blocksmith_edit_snippet', {'id': snippet.id}) %}
+    <div class="wrapper wrapper-blocksmith">
+        <div class="col-12">
             <div class="module-content">
                 <div class="btn-snippet-actions">
-                    <a class="btn btn-outline-secondary me-2" href="{{ h.url_for('bs_snippet.list') }}">
+                    <a class="btn btn-outline-primary me-2" href="{{ h.url_for('bs_snippet.list') }}">
                         {{ _("Back") }}
                     </a>
-                    <a class="btn btn-outline-primary" href="{{ h.url_for('bs_snippet.edit', snippet_id=snippet.id) }}">
-                        {{ _("Edit") }}
-                    </a>
+                    {% if h.check_access('blocksmith_edit_snippet', {'id': snippet.id}) %}
+                        <a class="btn btn-primary" href="{{ h.url_for('bs_snippet.edit', snippet_id=snippet.id) }}">
+                            {{ _("Edit") }}
+                        </a>
+                    {% endif %}
                 </div>
-                {% endif %}
 
                 {% block primary %}
-                    <h1>
-                        {{ snippet.title }}
-                    </h1>
+                    <h1>{{ snippet.title }}</h1>
                     <div class="mb-4">
                         <span><strong>{{ _('Name') }}:</strong></span><span class="ms-3">{{ snippet.name }}</span>
                     </div>
 
-                    <form class="form-control border-0 shadow-none p-0" hx-post="{{ h.url_for('bs_snippet.read', snippet_id=snippet.id) }}" hx-trigger="submit" hx-target="#snippet-preview" hx-swap="innerHTML">
-                        <input type="hidden" name="name" value="{{ snippet.name }}">
+                    <form class="form-control border-0 shadow-none p-0"
+                        hx-post="{{ h.url_for('bs_snippet.read', snippet_id=snippet.id) }}" hx-trigger="submit"
+                        hx-target="#snippet-preview" hx-swap="innerHTML">
                         {% if snippet.extras and snippet.extras.arguments %}
                             <div class="border p-4 rounded mb-4">
                                 <h3 class="mb-4">
-                                    Arguments
+                                    {{ _("Arguments") }}
                                 </h3>
                                 {% for argument in snippet.extras.arguments %}
                                     {% snippet 'blocksmith/snippet/snippets/snippet_argument_field.html', argument=argument %}
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        <div class="border p-4 rounded mb-4">
-                            <h3 class="mb-4">
-                                Code
+
+                        <div class="border p-3 rounded mb-4">
+                            <h3>
+                                {{ _("Code") }}
                             </h3>
-                            <textarea data-module="blocksmith-codemirror" data-module-editable="false" name="html" id="html">{{ snippet.html }}</textarea>
+                            <textarea data-module="blocksmith-codemirror" data-module-editable="false" name="html" id="html">{{ snippet.html.strip() }}</textarea>
                         </div>
+
                         <button class="btn btn-outline-success d-flex justify-content-center w-100 mb-4" title="Add Argument" type="submit">
                             <span>
                                 {{ _('Preview') }}
                             </span>
                         </button>
-                        <div id="snippet-preview" class="border"></div>
+
+                        <div id="snippet-preview" class="border rounded">
+                            <div class="text-muted p-4">
+                                {{ _('Preview') }}
+                            </div>
+                        </div>
                     </form>
                 {% endblock %}
-            </div>
+            </div> <!-- module-content -->
+        </div> <!-- col-12 -->
     </div>
 {% endblock %}
 
-
 {%- block scripts %}
     {% asset 'blocksmith/blocksmith-js' %}
-
     {{ super() }}
 {% endblock -%}

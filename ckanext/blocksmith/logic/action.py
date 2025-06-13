@@ -160,14 +160,14 @@ def blocksmith_update_snippet(
 @validate(schema.blocksmith_delete_snippet)
 def blocksmith_delete_snippet(
     context: types.Context, data_dict: types.DataDict
-) -> types.ActionResult.AnyDict:
+) -> bool:
     tk.check_access("blocksmith_delete_snippet", context, data_dict)
 
     snippet = cast(model.SnippetModel, model.SnippetModel.get_by_id(data_dict["id"]))
 
     snippet.delete()
 
-    return {"success": True}
+    return True
 
 
 @tk.side_effect_free

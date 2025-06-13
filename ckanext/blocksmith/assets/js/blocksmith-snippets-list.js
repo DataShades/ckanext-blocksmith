@@ -21,7 +21,7 @@ ckan.module("blocksmith-snippets-list", function ($) {
                 resizableRows: false,
                 height: "100%",
                 maxHeight: "100%",
-                minHeight: "450",
+                minHeight: "400",
                 placeholder: this._("No snippets found"),
             });
 

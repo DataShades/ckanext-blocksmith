@@ -1,4 +1,4 @@
-{% extends "page.html" %}
+{% extends "blocksmith/page.html" %}
 
 {% block title %}
     {{ _("Blocksmith - Snippets List") }}
@@ -12,7 +12,8 @@
 {% block main_content %}
     {% block flash %}{{ super() }}{% endblock %}
     {% block toolbar %}{{ super() }}{% endblock %}
-    <div class="wrapper wrapper-blocksmith" style="background-color: #fff;">
+
+    <div class="wrapper wrapper-blocksmith">
         {% block primary %}
             <div class="blocksmith-snippets-content position-relative">
                 <div data-module="blocksmith-snippets-list" id="blocksmith-snippets-list">
@@ -34,6 +35,5 @@
 
 {%- block scripts %}
     {% asset 'blocksmith/blocksmith-js' %}
-
     {{ super() }}
 {% endblock -%}

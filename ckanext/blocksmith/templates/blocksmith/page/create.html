@@ -13,7 +13,7 @@
     {% block flash %}{{ super() }}{% endblock %}
     {% block toolbar %}{{ super() }}{% endblock %}
 
-    <div class="wrapper wrapper-blocksmith" style="background-color: #fff;">
+    <div class="wrapper wrapper-blocksmith">
         {% block primary %}
             <div id="gjs" data-module="blocksmith-editor" data-module-default-content="{{ h.blocksmith_get_default_content() }}">
                 <span class="blocksmith-loading-indicator">

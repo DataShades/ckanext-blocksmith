@@ -1,7 +1,5 @@
 from typing import Any
 
-import ckanext.blocksmith.model as model
-
 
 def prepare_snippet_arguments(data_dict: dict[str, Any]) -> list[dict[str, Any]]:
     snippet_args = [
@@ -18,14 +16,10 @@ def prepare_snippet_arguments(data_dict: dict[str, Any]) -> list[dict[str, Any]]
         ),
         snippet_args,
     )
+
     default_value_conditions = list(zip(*columns))
+
     return [
         {"argument": i[0], "required": i[1], "input_type": i[2]}
         for i in default_value_conditions
     ]
-
-
-def load_snippet(name: str) -> model.SnippetModel | None:
-    snippet = model.SnippetModel.get_by_name(name)
-
-    return snippet

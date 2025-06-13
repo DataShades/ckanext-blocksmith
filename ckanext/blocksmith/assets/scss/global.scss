@@ -1,7 +1,8 @@
 .wrapper.wrapper-blocksmith {
-    min-height: 450px;
+    min-height: 400px;
 
-    &:before {
+    &:before,
+    &:after {
         display: none;
     }
 }

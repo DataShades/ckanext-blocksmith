@@ -115,8 +115,8 @@ def blocksmith_update_menu(
 
 
 @validator_args
-def blocksmith_delete_menu(not_empty, blocksmith_menu_exists) -> Schema:
-    return {"id": [not_empty, blocksmith_menu_exists]}
+def blocksmith_delete_menu(not_empty, unicode_safe, blocksmith_menu_exists) -> Schema:
+    return {"id": [not_empty, unicode_safe, blocksmith_menu_exists]}
 
 
 @validator_args
@@ -172,5 +172,7 @@ def blocksmith_get_snippet(
 
 
 @validator_args
-def blocksmith_delete_snippet(not_empty, blocksmith_snippet_exists) -> Schema:
-    return {"id": [not_empty, blocksmith_snippet_exists]}
+def blocksmith_delete_snippet(
+    not_empty, unicode_safe, blocksmith_snippet_exists
+) -> Schema:
+    return {"id": [not_empty, unicode_safe, blocksmith_snippet_exists]}

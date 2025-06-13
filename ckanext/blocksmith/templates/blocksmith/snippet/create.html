@@ -15,7 +15,7 @@
     {% block flash %}{{ super() }}{% endblock %}
     {% block toolbar %}{{ super() }}{% endblock %}
 
-    <div class="wrapper wrapper-blocksmith" style="background-color: #fff;">
+    <div class="wrapper wrapper-blocksmith">
         {% block primary %}
             <div class="module-content">
                 {% snippet 'blocksmith/snippet/snippets/snippet_form.html', data=data, create=True %}

@@ -23,7 +23,7 @@ ckan.module("blocksmith-menus-list", function ($) {
                 resizableRows: false,
                 height: "100%",
                 maxHeight: "100%",
-                minHeight: "450",
+                minHeight: "400px",
                 placeholder: this._("No menus found"),
 
             });
