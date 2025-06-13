@@ -17,7 +17,10 @@ classifiers = [
 ]
 license = {text = "AGPL"}
 
-dependencies = []
+dependencies = [
+  'beautifulsoup4>=4.8.2'
+]
+
 keywords = ["CKAN"]
 
 [project.optional-dependencies]
