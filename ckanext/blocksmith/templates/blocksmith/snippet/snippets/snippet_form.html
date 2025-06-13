@@ -28,6 +28,7 @@
             </div>
         </div>
     </div>
+
     <div class="accordion mb-4" id="arguments-acc">
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -68,11 +69,7 @@
     </div>
     <div class="d-flex align-items-center">
         <button class="btn btn-primary me-3" type="submit">
-            {% if create %}
-                {{ _('Create Snippet') }}
-            {% else %}
-                {{ _('Update Snippet') }}
-            {% endif %}
+            {{ _('Create Snippet') if create else _('Update Snippet') }}
         </button>
         <a href="{{ h.url_for('bs_snippet.list') }}" class="btn btn-outline-secondary">{{ _('Cancel') }}</a>
     </div>

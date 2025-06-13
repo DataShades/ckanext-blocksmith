@@ -1,3 +1,5 @@
+from typing import Any
+
 import pytest
 
 from ckan.tests.helpers import call_action
@@ -47,22 +49,18 @@ class TestUpdateSnippet:
 
 @pytest.mark.usefixtures("with_plugins", "clean_db")
 class TestListSnippets:
-    def test_list_snippets(self, snippet):
+    def test_list_snippets(self, snippet: dict[str, Any]):
         snippets = call_action("blocksmith_list_snippets")
 
         assert len(snippets) == 1
+
         assert snippets[0]["name"] == snippet["name"]
         assert snippets[0]["title"] == snippet["title"]
         assert snippets[0]["html"] == snippet["html"]
         assert snippets[0]["created_at"] == snippet["created_at"]
         assert snippets[0]["modified_at"] == snippet["modified_at"]
 
-    def test_list_snippets2(self, snippet):
+    def test_list_snippets_empty(self):
         snippets = call_action("blocksmith_list_snippets")
 
-        assert len(snippets) == 1
-        assert snippets[0]["name"] == snippet["name"]
-        assert snippets[0]["title"] == snippet["title"]
-        assert snippets[0]["html"] == snippet["html"]
-        assert snippets[0]["created_at"] == snippet["created_at"]
-        assert snippets[0]["modified_at"] == snippet["modified_at"]
+        assert len(snippets) == 0
