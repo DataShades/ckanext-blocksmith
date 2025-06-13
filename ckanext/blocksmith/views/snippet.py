@@ -43,7 +43,7 @@ class EditorView(MethodView):
                 )
             )
         except dict_fns.DataError:
-            return tk.base.abort(400, _("Integrity Error"))
+            return tk.base.abort(400, tk._("Integrity Error"))
 
         data_dict["extras"] = {}
         data_dict["extras"]["arguments"] = bs_utils.prepare_snippet_arguments(data_dict)
@@ -90,7 +90,7 @@ class ReadView(MethodView):
                 )
             )
         except dict_fns.DataError:
-            return tk.base.abort(400, _("Integrity Error"))
+            return tk.base.abort(400, tk._("Integrity Error"))
 
         extra_vars = {"data": data_dict, "name": data_dict.pop("name")}
         try:
@@ -134,7 +134,7 @@ class EditView(MethodView):
                 )
             )
         except dict_fns.DataError:
-            return tk.base.abort(400, _("Integrity Error"))
+            return tk.base.abort(400, tk._("Integrity Error"))
 
         data_dict["extras"] = {}
         data_dict["extras"]["arguments"] = bs_utils.prepare_snippet_arguments(data_dict)
