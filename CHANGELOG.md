@@ -2,6 +2,53 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2025-06-13
+
+### 🚀 Features
+
+- Add menu manager, wip [no ci]
+- Dynamic tags, wip [no ci]
+- Add Snippets entity
+
+### 🐛 Bug Fixes
+
+- Fix undefined _ usage
+- Missing dependency
+- Fix styles for not-bs pages, refactor templates, add missing string i18
+- Minor fixes and refactoring
+
+### 🚜 Refactor
+
+- Set equal min-height for all tables
+
+### 🧪 Testing
+
+- Update tests
+- Update test name, add type hinting
+
+### ⚙️ Miscellaneous Tasks
+
+- Update Readme with missing installation step
+- Sort imports
+- Update version to 0.3.0 [no ci]
+
+## [0.2.3] - 2025-04-30
+
+### 📚 Documentation
+
+- Use full urls for images to display correct on pypi
+
+## [0.2.2] - 2025-04-30
+
+### 📚 Documentation
+
+- Update readme, add screenshots [no ci]
+- Include doc images to manifest
+
+### ⚙️ Miscellaneous Tasks
+
+- Update version to 0.2.1 [no ci]
+
 ## [0.2.0] - 2025-04-30
 
 ### 🚀 Features
