@@ -7,7 +7,7 @@ from ckan.tests.helpers import call_action
 
 @pytest.mark.usefixtures("with_plugins", "clean_db")
 class TestCreateSnippet:
-    def test_create_snippet(self, snippet):
+    def test_create_snippet(self, snippet: dict[str, Any]):
         assert snippet["id"]
         assert snippet["name"]
         assert snippet["title"]
@@ -18,7 +18,7 @@ class TestCreateSnippet:
 
 @pytest.mark.usefixtures("with_plugins", "clean_db")
 class TestGetSnippet:
-    def test_create_snippet(self, snippet):
+    def test_get_snippet(self, snippet: dict[str, Any]):
         snippet = call_action("blocksmith_get_snippet", id=snippet["id"])
 
         assert snippet["id"] == snippet["id"]
@@ -31,7 +31,7 @@ class TestGetSnippet:
 
 @pytest.mark.usefixtures("with_plugins", "clean_db")
 class TestUpdateSnippet:
-    def test_update_snippet(self, snippet):
+    def test_update_snippet(self, snippet: dict[str, Any]):
         updated_snippet = call_action(
             "blocksmith_update_snippet",
             id=snippet["id"],
