@@ -21,7 +21,7 @@ ckan.module("blocksmith-pages-list", function ($) {
                 resizableRows: false,
                 height: "100%",
                 maxHeight: "100%",
-                minHeight: "900",
+                minHeight: "450",
                 placeholder: this._("No pages found"),
 
             });
