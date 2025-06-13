@@ -12,11 +12,14 @@ blocksmith-js:
     - js/vendor/grapes-parser-postcss.min.js
     - js/vendor/sweetalert2.min.js
     - js/vendor/tabulator.min.js
+    - js/vendor/codemirror6.bundle.min.js
 
     - js/blocksmith-editor.js
     - js/blocksmith-pages-list.js
+    - js/blocksmith-snippets-list.js
     - js/blocksmith-menus-list.js
     - js/blocksmith-slugify.js
+    - js/blocksmith-codemirror.js
   extra:
     preload:
       - base/main

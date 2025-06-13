@@ -1,0 +1,79 @@
+<form action="" method="post">
+    <div class="border rounded p-4 mb-4">
+        <h3 class="mb-4">
+            Snippet Configuration
+        </h3>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label class="form-label" for="title"><span title="This field is required"
+                            class="control-required">*</span> {{ _('Title') }}</label>
+                    <div class="controls ">
+                        <input id="title" type="text" name="title" value="{{ data.get('title', '')  }}" placeholder=""
+                            class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label class="form-label" for="name"><span title="This field is required"
+                            class="control-required">*</span> {{ _('Name') }}</label>
+                    <div class="controls ">
+                        <input id="name" type="text" name="name" value="{{ data.get('name', '')  }}" placeholder="Machine name"
+                            class="form-control" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion mb-4" id="arguments-acc">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="px-4 accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#arguments-acc-collapse" aria-expanded="false"
+                    aria-controls="arguments-acc-collapse">
+                    <h3 class="m-0">
+                        Arguments
+                    </h3>
+                </button>
+            </h2>
+            <div id="arguments-acc-collapse" class="accordion-collapse collapse"
+                aria-labelledby="arguments-acc-collapse">
+                <div class="accordion-body p-4">
+                    <div id="snippet_arguments_collapse">
+                        {% if data.get('extras') and data.extras.get('arguments') %}
+                        {% for arg in data.extras.arguments %}
+                        {% snippet 'blocksmith/snippet/snippets/snippet_kwarg_fieldset.html', arg=arg %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <button class="btn btn-outline-secondary d-flex justify-content-center w-100" title="Add Argument"
+                        hx-post="{{ h.url_for('bs_snippet.add_argument') }}" hx-trigger="click"
+                        hx-target="#snippet_arguments_collapse" hx-swap="beforeend">
+                        <i class="far fa-plus-square"></i>
+                        <span>
+                            {{ _('Add Argument') }}
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="border p-4 rounded mb-4">
+        <h3 class="mb-4">
+            Code
+        </h3>
+        <textarea data-module="blocksmith-codemirror" name="html" id="html">{{ data.get('html', '') }}</textarea>
+    </div>
+    <div class="d-flex align-items-center">
+        <button class="btn btn-primary me-3" type="submit">
+            {% if create %}
+                {{ _('Create Snippet') }}
+            {% else %}
+                {{ _('Update Snippet') }}
+            {% endif %}
+        </button>
+        <a href="{{ h.url_for('bs_snippet.list') }}" class="btn btn-outline-secondary">{{ _('Cancel') }}</a>
+    </div>
+</form>

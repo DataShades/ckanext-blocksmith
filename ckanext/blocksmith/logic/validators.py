@@ -85,3 +85,35 @@ def blocksmith_name_is_unique(name: str, context: types.Context) -> Any:
         raise tk.Invalid(f"The name {name} already exists.")
 
     return name
+
+
+def blocksmith_snippet_name_is_unique(
+    key: types.FlattenKey,
+    data: types.FlattenDataDict,
+    errors: types.FlattenErrorDict,
+    context: types.Context,
+) -> Any:
+    """Ensures that the page with a given name doesn't exist"""
+
+    result = model.SnippetModel.get_by_name(data[key])
+
+    if not result:
+        return
+
+    current_snippet = model.SnippetModel.get_by_id(data.get(("id",), ""))
+
+    if current_snippet and current_snippet.name == data[key]:
+        return
+
+    raise tk.Invalid(f"The page {data[key]} already exists.")
+
+
+def blocksmith_snippet_exists(snippet_id: str, context: types.Context) -> Any:
+    """Ensures that the snippet with a given id exists"""
+
+    result = model.SnippetModel.get_by_id(snippet_id)
+
+    if not result:
+        raise tk.Invalid(f"The page {snippet_id} doesn't exist.")
+
+    return snippet_id

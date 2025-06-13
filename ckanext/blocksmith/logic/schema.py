@@ -117,3 +117,53 @@ def blocksmith_update_menu(
 @validator_args
 def blocksmith_delete_menu(not_empty, blocksmith_menu_exists) -> Schema:
     return {"id": [not_empty, blocksmith_menu_exists]}
+
+
+@validator_args
+def blocksmith_create_snippet(
+    not_empty,
+    blocksmith_snippet_name_is_unique,
+    unicode_safe,
+    ignore,
+    json_object,
+    ignore_empty,
+) -> Schema:
+
+    return {
+        "name": [not_empty, unicode_safe, blocksmith_snippet_name_is_unique],
+        "title": [not_empty, unicode_safe],
+        "html": [not_empty, unicode_safe],
+        "extras": [ignore_empty, json_object],
+        "__extras": [ignore_empty, ignore],
+    }
+
+
+@validator_args
+def blocksmith_update_snippet(
+    not_empty,
+    unicode_safe,
+    blocksmith_snippet_name_is_unique,
+    blocksmith_snippet_exists,
+    ignore,
+    ignore_empty,
+    json_object,
+    name_validator,
+) -> Schema:
+    return {
+        "id": [not_empty, unicode_safe, blocksmith_snippet_exists],
+        "title": [ignore_empty, unicode_safe],
+        "name": [ignore_empty, unicode_safe, name_validator, blocksmith_snippet_name_is_unique],
+        "html": [ignore_empty, unicode_safe],
+        "extras": [ignore_empty, json_object],
+        "__extras": [ignore],
+    }
+
+
+@validator_args
+def blocksmith_get_snippet(not_empty, unicode_safe, blocksmith_snippet_exists) -> Schema:
+    return {"id": [not_empty, unicode_safe, blocksmith_snippet_exists]}
+
+
+@validator_args
+def blocksmith_delete_snippet(not_empty, blocksmith_snippet_exists) -> Schema:
+    return {"id": [not_empty, blocksmith_snippet_exists]}

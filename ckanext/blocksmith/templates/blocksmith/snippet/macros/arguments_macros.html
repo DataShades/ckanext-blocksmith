@@ -1,0 +1,17 @@
+{% macro argument_textarea(name, required) %}
+    {% set req =  h.asbool(required) %}
+    <div class="mb-3">
+        <label class="form-label" for="{{ name }}"><span
+                class="{% if req %}control-required{% endif %}">{% if req %}*{% endif %}</span> {{ name }}</label>
+        <textarea class="form-control" name="{{ name }}" id="{{ name }}" {% if req %}required{% endif %}></textarea>
+    </div>
+{% endmacro %}
+
+{% macro argument_input(name, required) %}
+    {% set req =  h.asbool(required) %}
+    <div class="mb-3">
+        <label class="form-label" for="{{ name }}"><span
+                class="{% if req %}control-required{% endif %}">{% if req %}*{% endif %}</span> {{ name }}</label>
+        <input class="form-control" type="text" name="{{ name }}" id="{{ name }}" {% if req %}required{% endif %}></input>
+    </div>
+{% endmacro %}

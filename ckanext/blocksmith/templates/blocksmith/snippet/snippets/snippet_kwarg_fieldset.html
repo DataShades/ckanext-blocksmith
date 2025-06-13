@@ -1,0 +1,30 @@
+{% import 'macros/form.html' as form %}
+
+{% set arg_dict = arg if arg else {} %}
+
+<div class="row align-items-center snippet-kwarg-item">
+    <div class="col-lg-11">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group ">
+                    <label class="form-label" for="argument[]"><span title="This field is required"
+                            class="control-required">*</span> Argument</label>
+                    <div class="controls ">
+                        <input id="argument[]" type="text" name="argument[]" value="{{ arg_dict.get('argument', '')  }}" placeholder="" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                {{ form.select('required[]', label=_('Required'), options=[{'value':'no', 'text': 'No'},{'value': 'yes', 'text':
+                'Yes'}], selected=arg_dict.get('required', ''), is_required=True, error='') }}
+            </div>
+            <div class="col-lg-4">
+                {{ form.select('input_type[]', label=_('Input Type'), options=[{'value':'input', 'text': 'Input'},{'value':
+                'textarea', 'text': 'Textarea'}], selected=arg_dict.get('input_type', ''), is_required=True, error='') }}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1">
+        <button class="btn border-0 text-danger fs-3" type="button" onclick="this.closest('.snippet-kwarg-item').remove()"><i class="far fa-trash-alt"></i></button>
+    </div>
+</div>

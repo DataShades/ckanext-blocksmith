@@ -20,6 +20,13 @@ license = {text = "AGPL"}
 dependencies = []
 keywords = ["CKAN"]
 
+[project.optional-dependencies]
+docs = [
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocstrings[python]"
+]
+
 [project.urls]
 Homepage = "https://github.com/DataShades/ckanext-blocksmith"
 

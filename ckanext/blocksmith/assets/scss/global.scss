@@ -1,5 +1,5 @@
 .wrapper.wrapper-blocksmith {
-    min-height: 900px;
+    min-height: 450px;
 
     &:before {
         display: none;
@@ -19,9 +19,45 @@
     right: 10px;
 }
 
+.btn-snippet-actions {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+}
+
 
 .blocksmith-menu-list {
     .primary {
         padding: 0;
+    }
+}
+
+.cm-editor {
+    max-height: 500px;
+    border: 1px solid #ddd
+}
+
+.cm-scroller {
+    overflow: auto;
+}
+
+.account-masthead .account {
+    .blocksmith-dropdown {
+        border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
+
+        li {
+            width: 100%;
+            border: unset;
+
+            a {
+                font-weight: normal;
+                color: var(--bs-dropdown-link-color);
+
+                &:hover {
+                    background-color: var(--bs-dropdown-link-hover-bg);
+                    color: var(--bs-dropdown-link-color)
+                }
+            }
+        }
     }
 }

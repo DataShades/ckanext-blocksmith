@@ -1,7 +1,8 @@
 $color-active: #206b82;
 
 #blocksmith-pages-list,
-#blocksmith-menus-list {
+#blocksmith-menus-list,
+#blocksmith-snippets-list {
     margin: 0;
 
     .tabulator-footer {
@@ -68,5 +69,11 @@ $color-active: #206b82;
         &.search-active {
             display: flex;
         }
+    }
+}
+
+#blocksmith-snippets-list {
+    .blocksmith-loading-indicator {
+        top: 4rem;
     }
 }

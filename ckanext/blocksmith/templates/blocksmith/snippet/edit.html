@@ -1,0 +1,41 @@
+{% extends "page.html" %}
+
+{% block title %}
+{{ _("Blocksmith - Edit Snippet") }}
+{% endblock %}
+
+{% block breadcrumb_content %}
+{{ super() }}
+<li><a href="{{ h.url_for('bs_snippet.edit', snippet_id=data.id) }}">Edit Snippet</a></li>
+{% endblock %}
+
+{% block main_content %}
+    {% block flash %}{{ super() }}{% endblock %}
+    {% block toolbar %}{{ super() }}{% endblock %}
+
+    <div class="wrapper wrapper-blocksmith" style="background-color: #fff;">
+        {% block primary %}
+        <div class="module-content">
+            <div class="btn-snippet-actions p-4">                
+                <a class="btn btn-outline-secondary me-2" href="{{ h.url_for('bs_snippet.list') }}">
+                    {{ _("Back") }}
+                </a>
+                <a class="btn btn-outline-primary" href="{{ h.url_for('bs_snippet.read', snippet_id=snippet_id) }}">
+                    {{ _("View") }}
+                </a>
+            </div>
+            {% snippet 'blocksmith/snippet/snippets/snippet_form.html', data=data %}
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{%- block styles %}
+{% asset 'blocksmith/blocksmith-css' %}
+{{ super() }}
+{% endblock %}
+
+{%- block scripts %}
+{% asset 'blocksmith/blocksmith-js' %}
+{{ super() }}
+{% endblock -%}

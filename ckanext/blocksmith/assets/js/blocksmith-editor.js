@@ -1,13 +1,11 @@
 /**
  * Initialize the GrapesJS editor
  */
-console.log(1)
 
 // here we set default vars
 // ckan.sandbox.extend({blocksmith: () => 2})
 
 ckan.module("blocksmith-editor", function ($) {
-    console.log(2)
     // here people can add/update options for grapejs
 
     return {

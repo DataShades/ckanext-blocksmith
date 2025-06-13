@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import TypedDict, Any
 
 
 class Page(TypedDict):
@@ -11,6 +11,16 @@ class Page(TypedDict):
     modified_at: str
     fullscreen: bool
     published: bool
+
+
+class Snippet(TypedDict):
+    id: str
+    title: str
+    name: str
+    html: str | None
+    created_at: str
+    modified_at: str
+    extras: dict[str, Any]
 
 
 class MenuItem(TypedDict):

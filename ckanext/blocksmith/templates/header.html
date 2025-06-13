@@ -2,22 +2,42 @@
 
 {% block header_account_logged %}
     {% if g.userobj.sysadmin %}
-        <li>
-            <a href="{{ h.url_for('bs_menu.list') }}" title="Menu list">
-                <i class="fa fa-list-alt" aria-hidden="true"></i>
+        <li class="dropdown blocksmith-dropdown">
+            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" title="Permissions">
+                <i class="fas fa-cube" aria-hidden="true"></i>
             </a>
-        </li>
-
-        <li>
-            <a href="{{ h.url_for('bs_page.create') }}" title="Create a new page">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </a>
-        </li>
-
-        <li>
-            <a href="{{ h.url_for('bs_page.list') }}" title="List of pages">
-                <i class="fa fa-list" aria-hidden="true"></i>
-            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" href="{{ h.url_for('bs_page.create') }}">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        {{ _("Create Page") }}
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ h.url_for('bs_page.list') }}">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        {{ _("Pages List") }}
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ h.url_for('bs_snippet.create') }}">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        {{ _("Create Snippet") }}
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ h.url_for('bs_snippet.list') }}">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        {{ _("Snippets List") }}
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ h.url_for('bs_menu.list') }}">
+                        <i class="fa fa-list-alt" aria-hidden="true"></i>
+                        {{ _("Menu list") }}
+                    </a>
+                </li>
+            </ul>
         </li>
     {% endif %}
 

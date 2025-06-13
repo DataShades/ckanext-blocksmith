@@ -128,3 +128,64 @@ def blocksmith_delete_menu(
     menu.delete()
 
     return {"success": True}
+
+
+@validate(schema.blocksmith_create_snippet)
+def blocksmith_create_snippet(
+    context: types.Context, data_dict: types.DataDict
+) -> blocksmith_types.Snippet:
+    tk.check_access("blocksmith_create_snippet", context, data_dict)
+
+    snippet = model.SnippetModel.create(data_dict)
+
+    return snippet.dictize(context)
+
+
+@validate(schema.blocksmith_update_snippet)
+def blocksmith_update_snippet(
+    context: types.Context, data_dict: types.DataDict
+) -> blocksmith_types.Snippet:
+    tk.check_access("blocksmith_edit_snippet", context, data_dict)
+
+    snippet = model.SnippetModel.get_by_id(data_dict["id"])
+
+    if not snippet:
+        raise tk.ObjectNotFound("Snippet not found")
+
+    snippet.update(data_dict)
+
+    return snippet.dictize(context)
+
+
+@validate(schema.blocksmith_delete_snippet)
+def blocksmith_delete_snippet(
+    context: types.Context, data_dict: types.DataDict
+) -> types.ActionResult.AnyDict:
+    tk.check_access("blocksmith_delete_snippet", context, data_dict)
+
+    snippet = cast(model.SnippetModel, model.SnippetModel.get_by_id(data_dict["id"]))
+
+    snippet.delete()
+
+    return {"success": True}
+
+
+@tk.side_effect_free
+@validate(schema.blocksmith_get_snippet)
+def blocksmith_get_snippet(
+    context: types.Context, data_dict: types.DataDict
+) -> blocksmith_types.Snippet:
+    tk.check_access("blocksmith_get_snippet", context, data_dict)
+
+    snippet = cast(model.SnippetModel, model.SnippetModel.get_by_id(data_dict["id"]))
+
+    return snippet.dictize(context)
+
+
+@tk.side_effect_free
+def blocksmith_list_snippets(
+    context: types.Context, data_dict: types.DataDict
+) -> list[blocksmith_types.Snippet]:
+    tk.check_access("blocksmith_list_snippets", context, data_dict)
+
+    return [snippet.dictize(context) for snippet in model.SnippetModel.get_all()]

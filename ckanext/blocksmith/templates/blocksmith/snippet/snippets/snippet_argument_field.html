@@ -1,0 +1,5 @@
+{% import 'blocksmith/snippet/macros/arguments_macros.html' as macros %}
+
+{% set marco_name = 'argument_' ~ argument.input_type %}
+
+{{  macros[marco_name](argument.argument, argument.required)  }}
