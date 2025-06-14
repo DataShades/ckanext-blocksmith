@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.1] - 2025-06-14
+
+### 🐛 Bug Fixes
+
+- Hide menus from dropdown, change snippet icon [no ci]
+- Fix snippet form validation
+
 ## [0.4.0] - 2025-06-14
 
 ### 🚀 Features
