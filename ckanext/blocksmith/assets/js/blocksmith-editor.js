@@ -2,11 +2,91 @@
  * Initialize the GrapesJS editor
  */
 
-// here we set default vars
-// ckan.sandbox.extend({blocksmith: () => 2})
+/**
+ * Set the default plugins and options for the GrapesJS editor inside the sandbox.
+ *
+ * So other extensions can override the default plugins and options.
+ */
+
+ckan.sandbox.extend({
+    blocksmith: {
+        plugins: [
+            "gjs-blocks-basic",
+            "grapesjs-preset-webpage",
+            "grapesjs-navbar",
+            "grapesjs-plugin-forms",
+            "grapesjs-blocks-flexbox",
+            "grapesjs-component-code-editor",
+            "grapesjs-parser-postcss"
+        ],
+        pluginsOpts: {
+            "grapesjs-preset-webpage": {
+                textCleanCanvas: "Are you sure you want to clear the canvas?",
+                modalImportContent: editor => getFullHtml(editor)
+            },
+            "gjs-blocks-basic": {
+                blocks: [
+                    "column1",
+                    "column2",
+                    "column3",
+                    "column3-7",
+                    "text",
+                    "link",
+                    "image",
+                    "video",
+                    "map"
+                ]
+            },
+            "grapesjs-navbar": {
+                classPrefix: "gjs-navbar"
+            },
+            "grapesjs-plugin-forms": {
+                blocks: [
+                    "form",
+                    "input",
+                    "textarea",
+                    "select",
+                    "button",
+                    "label",
+                    "checkbox",
+                    "radio"
+                ]
+            },
+            "grapesjs-blocks-flexbox": {
+                stylePrefix: "gjs-",
+            }
+        },
+    }
+})
+
+/**
+ * Get the full HTML of the GrapesJSeditor.
+ *
+ * @param {Editor} editor
+ * @returns {string}
+ */
+function getFullHtml(editor) {
+    const fullHtml = `
+        <style>${editor.getCss()}</style>
+        ${editor.getHtml()}
+    `;
+    return fullHtml;
+}
 
 ckan.module("blocksmith-editor", function ($) {
-    // here people can add/update options for grapejs
+    // If you want to override the default plugins and options,
+    // you can do it here, before the editor is initialized.
+
+    // ckan.sandbox().blocksmith.extend({
+    //     blocksmith: {
+    //         plugins: ["my-plugin"],
+    //         pluginsOpts: {
+    //             "my-plugin": {
+    //                 // ...
+    //             }
+    //         }
+    //     }
+    // })
 
     return {
         constants: {
@@ -87,60 +167,15 @@ ckan.module("blocksmith-editor", function ($) {
         },
 
         _initGrapesJS: function () {
-            // ckan.sandbox.blocksmith.options.plugins
-            // ckan.sandbox.blocksmith.options.pluginsOpts
+            let sandbox = ckan.sandbox();
 
             this.editor = grapesjs.init({
                 projectData: this.page ? JSON.parse(this.page.data) : {
                     pages: [{ component: this.options.defaultContent }]
                 },
                 container: this.el[0],
-                plugins: [
-                    "gjs-blocks-basic",
-                    "grapesjs-preset-webpage",
-                    "grapesjs-navbar",
-                    "grapesjs-plugin-forms",
-                    "grapesjs-blocks-flexbox",
-                    "grapesjs-component-code-editor",
-                    "grapesjs-parser-postcss"
-                ],
-                pluginsOpts: {
-                    "grapesjs-preset-webpage": {
-                        textCleanCanvas: "Are you sure you want to clear the canvas?",
-                        modalImportContent: editor => this._getFullHtml(editor)
-                    },
-                    "gjs-blocks-basic": {
-                        blocks: [
-                            "column1",
-                            "column2",
-                            "column3",
-                            "column3-7",
-                            "text",
-                            "link",
-                            "image",
-                            "video",
-                            "map"
-                        ]
-                    },
-                    "grapesjs-navbar": {
-                        classPrefix: "gjs-navbar"
-                    },
-                    "grapesjs-plugin-forms": {
-                        blocks: [
-                            "form",
-                            "input",
-                            "textarea",
-                            "select",
-                            "button",
-                            "label",
-                            "checkbox",
-                            "radio"
-                        ]
-                    },
-                    "grapesjs-blocks-flexbox": {
-                        stylePrefix: "gjs-",
-                    }
-                },
+                plugins: sandbox.blocksmith.plugins,
+                pluginsOpts: sandbox.blocksmith.pluginsOpts
             });
 
             this.editor.Panels.addButton("views", {
@@ -158,14 +193,6 @@ ckan.module("blocksmith-editor", function ($) {
             });
 
             this.editor.Commands.add("open-save-modal", this._onSaveButtonClick);
-        },
-
-        _getFullHtml: function (editor) {
-            const fullHtml = `
-                <style>${editor.getCss()}</style>
-                ${editor.getHtml()}
-            `;
-            return fullHtml;
         },
 
         _onSaveButtonClick: function (editor, sender) {

@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Callable
 
 import pytest
 
@@ -15,6 +15,13 @@ class TestCreateSnippet:
         assert snippet["created_at"]
         assert snippet["modified_at"]
 
+    def test_create_snippet_with_extras(
+        self, snippet_factory: Callable[..., dict[str, Any]]
+    ):
+        snippet = snippet_factory(extras={"test": "test"})
+
+        assert snippet["extras"] == {"test": "test"}
+
 
 @pytest.mark.usefixtures("with_plugins", "clean_db")
 class TestGetSnippet:
@@ -27,6 +34,7 @@ class TestGetSnippet:
         assert snippet["html"] == snippet["html"]
         assert snippet["created_at"] == snippet["created_at"]
         assert snippet["modified_at"] == snippet["modified_at"]
+        assert snippet["extras"] is None
 
 
 @pytest.mark.usefixtures("with_plugins", "clean_db")

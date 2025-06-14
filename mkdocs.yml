@@ -1,18 +1,34 @@
 site_name: ckanext-blocksmith
 site_url: https://datashades.github.io/ckanext-blocksmith/
 
-repo_url:  https://github.com/DataShades/ckanext-blocksmith
+repo_url: https://github.com/DataShades/ckanext-blocksmith
+
+markdown_extensions:
+- admonition
+- pymdownx.details
+- pymdownx.superfences
+- pymdownx.highlight:
+    anchor_linenums: true
+    line_spans: __span
+    pygments_lang_class: true
+- pymdownx.inlinehilite
+- pymdownx.snippets
+- pymdownx.superfences
 
 theme:
   name: material
   features:
-    - content.code.copy
+  - content.code.copy
 
 nav:
-  - Home: index.md
-  - Configuration: configuration.md
-  - Installation: installation.md
-  - Config Settings: config_settings.md
-  - Pages: pages/overview.md
-  - Snippets: snippets/overview.md
-  - Menus: menus/overview.md
+- Home: index.md
+- Configuration: configuration.md
+- Installation: installation.md
+- Config Settings: config_settings.md
+- Pages:
+  - Overview: pages/overview.md
+  - Plugins: pages/plugins.md
+- Snippets:
+  - Overview: snippets/overview.md
+- Menus:
+  - Overview: menus/overview.md

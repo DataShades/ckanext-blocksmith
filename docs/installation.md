@@ -1,11 +1,17 @@
-Install it from source:
-    ```
-    pip install -e .
-    ```
+There are two ways to install `ckanext-blocksmith`:
 
-Or use `pypi` to install:
-    ```
-    pip install ckanext-blocksmith
-    ```
+1. From source (recommended for development):
+```bash
+pip install -e .
+```
 
-Initialize DB tables by running ```ckan -c PATH_TO_CONFIG db upgrade -p blocksmith```
+2. From PyPI (recommended for production):
+```bash
+pip install ckanext-blocksmith
+```
+
+After installing the extension, **initialize the database** tables by running:
+
+```bash
+ckan -c PATH_TO_CONFIG db upgrade -p blocksmith
+```
