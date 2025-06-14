@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://datashades.github.io/ckanext-blocksmith/pages/overview/">
+        <link rel="canonical" href="https://datashades.github.io/ckanext-blocksmith/pages/plugins/">
       
       
-        <link rel="prev" href="../../config_settings/">
+        <link rel="prev" href="../overview/">
       
       
-        <link rel="next" href="../plugins/">
+        <link rel="next" href="../../snippets/overview/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Overview - ckanext-blocksmith</title>
+        <title>Plugins - ckanext-blocksmith</title>
       
     
     
@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#override-the-default-plugins-and-options" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -95,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview
+              Plugins
             
           </span>
         </div>
@@ -340,17 +345,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -361,7 +359,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -371,10 +368,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../plugins/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Plugins
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -385,6 +402,33 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#override-the-default-plugins-and-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Override the default plugins and options
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -551,6 +595,23 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#override-the-default-plugins-and-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Override the default plugins and options
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -568,9 +629,55 @@
   
 
 
-  <h1>Overview</h1>
+  <h1>Plugins</h1>
 
-<p>TBD</p>
+<p>The <code>GrapeJS</code> has a plugin system, that allows you to extend the editor with new features.</p>
+<p>You can find more information about the plugins in the <a href="https://grapesjs.com/docs/modules/Plugins.html">GrapeJS documentation</a>.</p>
+<h3 id="override-the-default-plugins-and-options">Override the default plugins and options</h3>
+<p>You can change the list of plugins and options for the GrapesJS editor that we use in the extension. For this, you have to initialize a regular CKAN JS module first.</p>
+<p>You can learn more about this in the <a href="https://docs.ckan.org/en/latest/contributing/frontend/javascript-module-tutorial.html">CKAN documentation</a>.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Your JS module, that overrides the default plugins and options, must be loaded after the <code>blocksmith-editor.js</code> file. It means, that your extension should be loaded after the <code>blocksmith</code> extension in the <code>ckan.plugins</code> in the config file.</p>
+<p>For example:
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="na">ckan.plugins</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">        </span><span class="na">...</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="na">blocksmith</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="na">your_extension</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="na">...</span>
+</span></code></pre></div></p>
+</details>
+<p>Imagine you already have a basic JS module, that is already being initialized.</p>
+<div class="language-javascript highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nx">ckan</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;my-module&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">jQuery</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="nx">initialize</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;I am a module&#39;</span><span class="p">);</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="p">};</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">});</span>
+</span></code></pre></div>
+<p>Now you can extend update the GrapeJS initialization options by adding the following to the module.</p>
+<div class="language-javascript highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nx">ckan</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;my-module&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">jQuery</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">ckan</span><span class="p">.</span><span class="nx">sandbox</span><span class="p">().</span><span class="nx">blocksmith</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="nx">plugins</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;my-plugin&quot;</span><span class="p">],</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">        </span><span class="nx">pluginsOpts</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">            </span><span class="s2">&quot;my-plugin&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">                </span><span class="c1">// ...</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="p">});</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="nx">initialize</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;I am a module&#39;</span><span class="p">);</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="p">};</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">});</span>
+</span></code></pre></div>
+<p>This will completely override the list of plugins and options for the GrapesJS editor.</p>
+<p>If you want to add a new plugin, you can do so by adding it to the list of plugins. For example, if you want to add the <code>grapesjs-my-plugin</code> plugin, you can do so by adding it to the list of plugins.</p>
+<div class="language-javascript highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">ckan</span><span class="p">.</span><span class="nx">sandbox</span><span class="p">().</span><span class="nx">blocksmith</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;grapesjs-my-plugin&quot;</span><span class="p">);</span>
+</span></code></pre></div>
 
 
 

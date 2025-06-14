@@ -2,30 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://datashades.github.io/ckanext-blocksmith/</loc>
-         <lastmod>2025-06-13</lastmod>
+         <lastmod>2025-06-14</lastmod>
     </url>
     <url>
          <loc>https://datashades.github.io/ckanext-blocksmith/config_settings/</loc>
-         <lastmod>2025-06-13</lastmod>
+         <lastmod>2025-06-14</lastmod>
     </url>
     <url>
          <loc>https://datashades.github.io/ckanext-blocksmith/configuration/</loc>
-         <lastmod>2025-06-13</lastmod>
+         <lastmod>2025-06-14</lastmod>
     </url>
     <url>
          <loc>https://datashades.github.io/ckanext-blocksmith/installation/</loc>
-         <lastmod>2025-06-13</lastmod>
+         <lastmod>2025-06-14</lastmod>
     </url>
     <url>
          <loc>https://datashades.github.io/ckanext-blocksmith/menus/overview/</loc>
-         <lastmod>2025-06-13</lastmod>
+         <lastmod>2025-06-14</lastmod>
     </url>
     <url>
          <loc>https://datashades.github.io/ckanext-blocksmith/pages/overview/</loc>
-         <lastmod>2025-06-13</lastmod>
+         <lastmod>2025-06-14</lastmod>
+    </url>
+    <url>
+         <loc>https://datashades.github.io/ckanext-blocksmith/pages/plugins/</loc>
+         <lastmod>2025-06-14</lastmod>
     </url>
     <url>
          <loc>https://datashades.github.io/ckanext-blocksmith/snippets/overview/</loc>
-         <lastmod>2025-06-13</lastmod>
+         <lastmod>2025-06-14</lastmod>
     </url>
 </urlset>
