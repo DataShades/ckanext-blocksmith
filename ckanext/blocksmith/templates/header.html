@@ -21,7 +21,7 @@
                 </li>
                 <li>
                     <a class="dropdown-item" href="{{ h.url_for('bs_snippet.create') }}">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        <i class="fa fa-code" aria-hidden="true"></i>
                         {{ _("Create Snippet") }}
                     </a>
                 </li>
@@ -31,12 +31,15 @@
                         {{ _("Snippets List") }}
                     </a>
                 </li>
+
+                {% if menus_are_implemented %}
                 <li>
                     <a class="dropdown-item" href="{{ h.url_for('bs_menu.list') }}">
                         <i class="fa fa-list-alt" aria-hidden="true"></i>
                         {{ _("Menu list") }}
                     </a>
                 </li>
+                {% endif %}
             </ul>
         </li>
     {% endif %}
