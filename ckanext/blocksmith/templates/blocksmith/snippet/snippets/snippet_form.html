@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form method="POST" data-module="blocksmith-snippet-form">
     {{ h.csrf_input() }}
 
     <div class="border rounded p-3 mb-4">
@@ -21,8 +21,7 @@
                     <label class="form-label" for="name"><span title="This field is required"
                             class="control-required">*</span> {{ _('Name') }}</label>
                     <div class="controls ">
-                        <input id="name" type="text" name="name" value="{{ data.get('name', '')  }}" placeholder="Machine name"
-                            class="form-control" required>
+                        <input id="name" type="text" name="name" value="{{ data.get('name', '')  }}" placeholder="Machine name" class="form-control" required data-module="blocksmith-slugify">
                     </div>
                 </div>
             </div>
@@ -50,7 +49,7 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-                    <button class="btn btn-outline-secondary d-flex justify-content-center w-100" title="Add Argument"
+                    <button class="btn btn-outline-primary d-flex justify-content-center w-100" title="Add Argument"
                         hx-post="{{ h.url_for('bs_snippet.add_argument') }}" hx-trigger="click"
                         hx-target="#snippet_arguments_collapse" hx-swap="beforeend">
                         <i class="far fa-plus-square"></i>
@@ -67,10 +66,13 @@
         <h3>{{ _("Code") }}</h3>
         <textarea data-module="blocksmith-codemirror" name="html" id="html">{{ data.get('html', '').strip() }}</textarea>
     </div>
-    <div class="d-flex align-items-center">
+    <div class="form-actions">
+        <a href="{{ h.url_for('bs_snippet.list') }}" class="btn btn-outline-primary">
+            {{ _('Cancel') }}
+        </a>
+
         <button class="btn btn-primary me-3" type="submit">
             {{ _('Create Snippet') if create else _('Update Snippet') }}
         </button>
-        <a href="{{ h.url_for('bs_snippet.list') }}" class="btn btn-outline-secondary">{{ _('Cancel') }}</a>
     </div>
 </form>

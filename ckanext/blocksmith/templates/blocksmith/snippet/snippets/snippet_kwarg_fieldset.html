@@ -2,7 +2,7 @@
 
 {% set arg_dict = arg if arg else {} %}
 
-<div class="row align-items-center snippet-kwarg-item">
+<div class="row align-items-center snippet-kwarg-item mb-3 mb-lg-0">
     <div class="col-lg-11">
         <div class="row">
             <div class="col-lg-4">
@@ -24,7 +24,8 @@
                         {'value': 'yes', 'text': 'Yes'}
                     ],
                     selected=arg_dict.get('required', ''),
-                    is_required=True, error='')
+                    is_required=True, error='',
+                    attrs={'class': 'form-select'})
                 }}
             </div>
             <div class="col-lg-4">
@@ -36,12 +37,15 @@
                         {'value': 'textarea', 'text': 'Textarea'}
                     ],
                     selected=arg_dict.get('input_type', ''),
-                    is_required=True, error='')
+                    is_required=True, error='',
+                    attrs={'class': 'form-select'})
                 }}
             </div>
         </div>
     </div>
     <div class="col-lg-1">
-        <button class="btn border-0 text-danger fs-3" type="button" onclick="this.closest('.snippet-kwarg-item').remove()"><i class="far fa-trash-alt"></i></button>
+        <button class="btn btn-outline-danger fs-3" type="button" onclick="this.closest('.snippet-kwarg-item').remove()">
+            <i class="far fa-trash-alt"></i>
+        </button>
     </div>
 </div>

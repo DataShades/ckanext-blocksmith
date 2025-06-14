@@ -17,6 +17,7 @@ blocksmith-js:
     - js/blocksmith-editor.js
     - js/blocksmith-pages-list.js
     - js/blocksmith-snippets-list.js
+    - js/blocksmith-snippet-form.js
     - js/blocksmith-menus-list.js
     - js/blocksmith-slugify.js
     - js/blocksmith-codemirror.js

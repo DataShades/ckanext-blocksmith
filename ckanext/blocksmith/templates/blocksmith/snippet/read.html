@@ -6,6 +6,7 @@
 
 {% block breadcrumb_content %}
     {{ super() }}
+    <li><a href="{{ h.url_for('bs_snippet.list') }}">{{ _("Snippets List") }}</a></li>
     <li><a href="{{ h.url_for('bs_snippet.read', snippet_id=snippet.id) }}">{{ snippet.title }}</a></li>
 {% endblock %}
 
@@ -28,7 +29,7 @@
                 </div>
 
                 {% block primary %}
-                    <h1>{{ snippet.title }}</h1>
+                    <h2>{{ snippet.title }}</h2>
                     <div class="mb-4">
                         <span><strong>{{ _('Name') }}:</strong></span><span class="ms-3">{{ snippet.name }}</span>
                     </div>
@@ -54,7 +55,7 @@
                             <textarea data-module="blocksmith-codemirror" data-module-editable="false" name="html" id="html">{{ snippet.html.strip() }}</textarea>
                         </div>
 
-                        <button class="btn btn-outline-success d-flex justify-content-center w-100 mb-4" title="Add Argument" type="submit">
+                        <button class="btn btn-outline-primary d-flex justify-content-center w-100 mb-4" title="Add Argument" type="submit">
                             <span>
                                 {{ _('Preview') }}
                             </span>
