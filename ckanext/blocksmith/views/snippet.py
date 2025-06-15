@@ -63,7 +63,7 @@ class ReadView(MethodView):
     def _check_access(self, snippet_id: str):
         try:
             tk.check_access(
-                "blocksmith_edit_snippet", make_context(), {"id": snippet_id}
+                "blocksmith_get_snippet", make_context(), {"id": snippet_id}
             )
         except tk.NotAuthorized:
             return tk.abort(404, "Snippet not found")
@@ -114,13 +114,16 @@ class EditView(MethodView):
 
         try:
             tk.check_access(
-                "blocksmith_edit_snippet", make_context(), {"id": snippet_id}
+                "blocksmith_update_snippet", make_context(), {"id": snippet_id}
             )
         except tk.NotAuthorized:
             return tk.abort(404, "Page not found")
 
         if not snippet:
             return tk.abort(404, "Page not found")
+
+        if snippet.extras and snippet.extras.get("readonly"):
+            return tk.abort(404, "You are not allowed to edit this snippet")
 
         return tk.render(
             "blocksmith/snippet/edit.html",
@@ -129,7 +132,9 @@ class EditView(MethodView):
 
     def post(self, snippet_id):
         try:
-            tk.check_access("blocksmith_edit_snippet", make_context(), {})
+            tk.check_access(
+                "blocksmith_update_snippet", make_context(), {"id": snippet_id}
+            )
         except tk.NotAuthorized:
             return tk.abort(404, "Page not found")
 

@@ -52,6 +52,7 @@ ckan.module("blocksmith-snippets-list", function ($) {
                 name: snippet.name,
                 created: new Date(snippet.created_at + 'Z').toLocaleString(),
                 modified: new Date(snippet.modified_at + 'Z').toLocaleString(),
+                readonly: snippet.readonly ? this._("Yes") : this._("No"),
                 actions: "" // Filled dynamically by _formatActionCell
             }));
 
@@ -77,8 +78,8 @@ ckan.module("blocksmith-snippets-list", function ($) {
                 { title: 'ID', field: 'id', visible: false },
                 { title: this._("Title"), field: 'title', resizable: true},
                 { title: this._("Name"), field: 'name', resizable: true},
-                { title: this._("Created"), field: 'created', resizable: false, maxWidth: 160 },
-                { title: this._("Modified"), field: 'modified', resizable: false, maxWidth: 160 },
+                { title: this._("Created"), field: 'created', resizable: false},
+                { title: this._("Modified"), field: 'modified', resizable: false},
                 {
                     title: this._("Actions"),
                     field: 'actions',
@@ -101,6 +102,16 @@ ckan.module("blocksmith-snippets-list", function ($) {
         _formatActionCell: function (rowData) {
             const readUrl = this.sandbox.client.url('/blocksmith/snippet/read/' + rowData.id);
             const editUrl = this.sandbox.client.url('/blocksmith/snippet/edit/' + rowData.id);
+
+            if (rowData.readonly === "Yes") {
+                return `
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-outline-primary" href="${readUrl}">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    </div>
+                `;
+            }
 
             return `
                 <div class="d-flex gap-2">

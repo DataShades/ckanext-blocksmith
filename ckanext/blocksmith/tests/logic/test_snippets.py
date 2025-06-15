@@ -2,6 +2,7 @@ from typing import Any, Callable
 
 import pytest
 
+import ckan.plugins.toolkit as tk
 from ckan.tests.helpers import call_action
 
 
@@ -14,6 +15,7 @@ class TestCreateSnippet:
         assert snippet["html"]
         assert snippet["created_at"]
         assert snippet["modified_at"]
+        assert snippet["readonly"] is False
 
     def test_create_snippet_with_extras(
         self, snippet_factory: Callable[..., dict[str, Any]]
@@ -54,6 +56,16 @@ class TestUpdateSnippet:
         assert updated_snippet["created_at"] == snippet["created_at"]
         assert updated_snippet["modified_at"] != snippet["modified_at"]
 
+    def test_update_snippet_readonly(
+        self, snippet_factory: Callable[..., dict[str, Any]]
+    ):
+        snippet = snippet_factory(readonly=True)
+
+        with pytest.raises(tk.ValidationError):
+            call_action(
+                "blocksmith_update_snippet", id=snippet["id"], title="New Title"
+            )
+
 
 @pytest.mark.usefixtures("with_plugins", "clean_db")
 class TestListSnippets:
@@ -72,3 +84,24 @@ class TestListSnippets:
         snippets = call_action("blocksmith_list_snippets")
 
         assert len(snippets) == 0
+
+
+@pytest.mark.usefixtures("with_plugins", "clean_db")
+class TestDeleteSnippet:
+    def test_delete_snippet(self, snippet: dict[str, Any]):
+        call_action("blocksmith_delete_snippet", id=snippet["id"])
+
+        with pytest.raises(tk.ValidationError):
+            call_action("blocksmith_get_snippet", id=snippet["id"])
+
+    def test_delete_snippet_not_found(self):
+        with pytest.raises(tk.ValidationError):
+            call_action("blocksmith_delete_snippet", id="not-found")
+
+    def test_delete_readonly_snippet(
+        self, snippet_factory: Callable[..., dict[str, Any]]
+    ):
+        snippet = snippet_factory(readonly=True)
+
+        with pytest.raises(tk.ValidationError):
+            call_action("blocksmith_delete_snippet", id=snippet["id"])

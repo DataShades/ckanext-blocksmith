@@ -1,28 +1,23 @@
 <form method="POST" data-module="blocksmith-snippet-form">
     {{ h.csrf_input() }}
 
-    <div class="border rounded p-3 mb-4">
-        <h3 class="mb-4">
-            {{ _("Snippet Configuration") }}
-        </h3>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="mb-3">
-                    <label class="form-label" for="title"><span title="This field is required"
-                            class="control-required">*</span> {{ _('Title') }}</label>
-                    <div class="controls ">
-                        <input id="title" type="text" name="title" value="{{ data.get('title', '')  }}" placeholder=""
-                            class="form-control" required>
-                    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="mb-3">
+                <label class="form-label" for="title"><span title="This field is required"
+                        class="control-required">*</span> {{ _('Title') }}</label>
+                <div class="controls ">
+                    <input id="title" type="text" name="title" value="{{ data.get('title', '')  }}" placeholder=""
+                        class="form-control" required>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="mb-3">
-                    <label class="form-label" for="name"><span title="This field is required"
-                            class="control-required">*</span> {{ _('Name') }}</label>
-                    <div class="controls ">
-                        <input id="name" type="text" name="name" value="{{ data.get('name', '')  }}" placeholder="Machine name" class="form-control" required data-module="blocksmith-slugify">
-                    </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="mb-3">
+                <label class="form-label" for="name"><span title="This field is required"
+                        class="control-required">*</span> {{ _('Name') }}</label>
+                <div class="controls ">
+                    <input id="name" type="text" name="name" value="{{ data.get('name', '')  }}" placeholder="Machine name" class="form-control" required data-module="blocksmith-slugify">
                 </div>
             </div>
         </div>
@@ -31,17 +26,17 @@
     <div class="accordion mb-4" id="arguments-acc">
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="px-3 accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                <button class="p-2 px-3 accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#arguments-acc-collapse" aria-expanded="false"
                     aria-controls="arguments-acc-collapse">
-                    <h3 class="m-0">
+                    <h5 class="m-0">
                         {{ _("Arguments") }}
-                    </h3>
+                    </h5>
                 </button>
             </h2>
             <div id="arguments-acc-collapse" class="accordion-collapse collapse"
                 aria-labelledby="arguments-acc-collapse">
-                <div class="accordion-body p-4">
+                <div class="accordion-body p-3">
                     <div id="snippet_arguments_collapse">
                         {% if data.get('extras') and data.extras.get('arguments') %}
                             {% for arg in data.extras.arguments %}
@@ -49,30 +44,31 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-                    <button class="btn btn-outline-primary d-flex justify-content-center w-100" title="Add Argument"
-                        hx-post="{{ h.url_for('bs_snippet.add_argument') }}" hx-trigger="click"
-                        hx-target="#snippet_arguments_collapse" hx-swap="beforeend">
-                        <i class="far fa-plus-square"></i>
-                        <span>
+
+                    <div class="form-actions">
+                        <button class="btn btn-outline-primary" title="Add Argument"
+                            hx-post="{{ h.url_for('bs_snippet.add_argument') }}" hx-trigger="click"
+                            hx-target="#snippet_arguments_collapse" hx-swap="beforeend">
+                            <i class="far fa-plus-square"></i>
                             {{ _('Add Argument') }}
-                        </span>
-                    </button>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="border p-3 rounded mb-4">
-        <h3>{{ _("Code") }}</h3>
-        <textarea data-module="blocksmith-codemirror" name="html" id="html">{{ data.get('html', '').strip() }}</textarea>
+    <div class="mb-4">
+        <textarea class="textarea-cm" data-module="blocksmith-codemirror" name="html" id="html">{{ data.get('html', '').strip() }}</textarea>
     </div>
+
     <div class="form-actions">
         <a href="{{ h.url_for('bs_snippet.list') }}" class="btn btn-outline-primary">
             {{ _('Cancel') }}
         </a>
 
-        <button class="btn btn-primary me-3" type="submit">
-            {{ _('Create Snippet') if create else _('Update Snippet') }}
+        <button class="btn btn-primary" type="submit">
+            {{ _('Create') if create else _('Update') }}
         </button>
     </div>
 </form>

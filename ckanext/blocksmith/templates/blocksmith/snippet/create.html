@@ -11,21 +11,27 @@
     <li><a href="{{ h.url_for('bs_snippet.create') }}">{{ _("Create Snippet") }}</a></li>
 {% endblock %}
 
-{% block main_content %}
-    {% block flash %}{{ super() }}{% endblock %}
-    {% block toolbar %}{{ super() }}{% endblock %}
+{% block secondary_content %}
+<div class="module module-narrow module-shallow">
+    <h2 class="module-heading">
+        <i class="fa fa-info-circle"></i>
+        {{_("Blocksmith - Create Snippet") }}
+    </h2>
+    <div class="module-content">
+        <p>{{_("Create a new snippet to be used in pages.") }}</p>
+        <p>{{ _("Each snippet should have a unique name.") }}</p>
+        <p>{{_("You can add arguments to the snippet, that will be passed to the snippet when it is used in a GrapesJS.") }}</p>
+    </div>
+</div>
+{% endblock %}
 
-    <div class="wrapper wrapper-blocksmith">
-        {% block primary %}
-            <div class="module-content">
-                {% snippet 'blocksmith/snippet/snippets/snippet_form.html', data=data, create=True %}
-            </div>
-        {% endblock %}
+{% block primary_content %}
+    <div class="module-content">
+        {% snippet 'blocksmith/snippet/snippets/snippet_form.html', data=data, create=True %}
     </div>
 {% endblock %}
 
 {%- block scripts %}
     {% asset 'blocksmith/blocksmith-js' %}
-
     {{ super() }}
 {% endblock -%}

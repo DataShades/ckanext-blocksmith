@@ -33,6 +33,7 @@ class SnippetFactory(factories.CKANFactory):
     name = factory.LazyFunction(lambda: fake.sentence(3).replace(" ", "_"))
     title = factory.LazyFunction(lambda: fake.sentence())
     html = "<p>Hello, world!</p>"
+    readonly = False
 
 
 @pytest.fixture()

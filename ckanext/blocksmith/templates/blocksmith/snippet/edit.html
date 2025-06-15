@@ -6,7 +6,11 @@
 
 {% block breadcrumb_content %}
     {{ super() }}
-
+    <li>
+        <a href="{{ h.url_for('bs_snippet.list') }}">
+            {{ _("Snippets List") }}
+        </a>
+    </li>
     <li>
         <a href="{{ h.url_for('bs_snippet.edit', snippet_id=data.id) }}">
             {{ _("Edit Snippet") }}
@@ -14,26 +18,29 @@
     </li>
 {% endblock %}
 
-{% block main_content %}
-    {% block flash %}{{ super() }}{% endblock %}
-    {% block toolbar %}{{ super() }}{% endblock %}
 
-    <div class="wrapper wrapper-blocksmith">
-        <div class="col-12">
-            {% block primary %}
-                <div class="module-content">
-                    <div class="btn-snippet-actions p-4">
-                        <a class="btn btn-outline-primary me-2" href="{{ h.url_for('bs_snippet.list') }}">
-                            {{ _("Back") }}
-                        </a>
-                        <a class="btn btn-primary" href="{{ h.url_for('bs_snippet.read', snippet_id=snippet_id) }}">
-                            {{ _("View") }}
-                        </a>
-                    </div>
-                    {% snippet 'blocksmith/snippet/snippets/snippet_form.html', data=data %}
-                </div>
-            {% endblock %}
+{% block secondary_content %}
+<div class="module module-narrow module-shallow">
+    <h2 class="module-heading">
+        <i class="fa fa-info-circle"></i>
+        {{_("Blocksmith - Edit Snippet") }}
+    </h2>
+    <div class="module-content">
+        <p>{{_("Snippet editing.") }}</p>
+
+        <div class="">
+            <a class="btn btn-primary" href="{{ h.url_for('bs_snippet.read', snippet_id=snippet_id) }}" title="{{ _('View Snippet') }}">
+                <i class="fa fa-eye"></i>
+                {{ _('View') }}
+            </a>
         </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block primary_content %}
+    <div class="module-content">
+        {% snippet 'blocksmith/snippet/snippets/snippet_form.html', data=data %}
     </div>
 {% endblock %}
 

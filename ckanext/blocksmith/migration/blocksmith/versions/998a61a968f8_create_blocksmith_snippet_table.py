@@ -30,7 +30,18 @@ def upgrade():
         sa.Column(
             "modified_at", sa.DateTime(), server_default=sa.func.now(), nullable=False
         ),
+        sa.Column("readonly", sa.Boolean(), default=False, nullable=False),
         sa.Column("extras", postgresql.JSONB(astext_type=sa.Text()), nullable=True),
+    )
+
+    op.execute(
+        """
+        INSERT INTO blocksmith_snippet (id, title, name, html, readonly, extras)
+        SELECT '1', 'Test Snippet', 'test_snippet', '<p>Test Snippet</p>', TRUE, '{}'
+        WHERE NOT EXISTS (
+            SELECT 1 FROM blocksmith_snippet WHERE name = 'test_snippet'
+        )
+        """
     )
 
 

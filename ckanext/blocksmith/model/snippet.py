@@ -21,6 +21,7 @@ class SnippetModel(tk.BaseModel, BaseModelMixin):
     html = sa.Column(sa.Text)
     created_at = sa.Column(sa.DateTime, server_default=sa.func.now())
     modified_at = sa.Column(sa.DateTime, default=sa.func.now(), onupdate=sa.func.now())
+    readonly = sa.Column(sa.Boolean, default=False)
     extras = sa.Column(MutableDict.as_mutable(JSONB))
 
     def dictize(self, context: types.Context) -> blocksmith_types.Snippet:
@@ -31,6 +32,7 @@ class SnippetModel(tk.BaseModel, BaseModelMixin):
             html=str(self.html) if self.html else None,
             created_at=self.created_at.isoformat(),
             modified_at=self.modified_at.isoformat(),
+            readonly=self.readonly,
             extras=self.extras,  # type: ignore
         )
 

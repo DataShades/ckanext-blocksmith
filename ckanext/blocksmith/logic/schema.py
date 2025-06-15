@@ -127,12 +127,15 @@ def blocksmith_create_snippet(
     ignore,
     json_object,
     ignore_empty,
+    boolean_validator,
+    default,
 ) -> Schema:
 
     return {
         "name": [not_empty, unicode_safe, blocksmith_snippet_name_is_unique],
         "title": [not_empty, unicode_safe],
         "html": [not_empty, unicode_safe],
+        "readonly": [default(False), boolean_validator],
         "extras": [ignore_empty, json_object],
         "__extras": [ignore_empty, ignore],
     }

@@ -17,13 +17,13 @@
     <div class="wrapper wrapper-blocksmith">
         <div class="col-12">
             <div class="module-content">
-                <div class="btn-snippet-actions">
-                    <a class="btn btn-outline-primary me-2" href="{{ h.url_for('bs_snippet.list') }}">
-                        {{ _("Back") }}
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-outline-primary me-2" href="{{ h.url_for('bs_snippet.list') }}" title="{{ _('Back to Snippets List') }}">
+                        <i class="fa fa-arrow-left"></i>
                     </a>
-                    {% if h.check_access('blocksmith_edit_snippet', {'id': snippet.id}) %}
-                        <a class="btn btn-primary" href="{{ h.url_for('bs_snippet.edit', snippet_id=snippet.id) }}">
-                            {{ _("Edit") }}
+                    {% if h.check_access('blocksmith_update_snippet', {'id': snippet.id}) %}
+                        <a class="btn btn-primary" href="{{ h.url_for('bs_snippet.edit', snippet_id=snippet.id) }}" title="{{ _('Edit Snippet') }}">
+                            <i class="fa fa-edit"></i>
                         </a>
                     {% endif %}
                 </div>
@@ -34,28 +34,27 @@
                         <span><strong>{{ _('Name') }}:</strong></span><span class="ms-3">{{ snippet.name }}</span>
                     </div>
 
-                    <form class="form-control border-0 shadow-none p-0"
-                        hx-post="{{ h.url_for('bs_snippet.read', snippet_id=snippet.id) }}" hx-trigger="submit"
-                        hx-target="#snippet-preview" hx-swap="innerHTML">
+                    <form hx-post="{{ h.url_for('bs_snippet.read', snippet_id=snippet.id) }}"
+                        hx-trigger="submit"
+                        hx-target="#snippet-preview"
+                        hx-swap="innerHTML">
                         {% if snippet.extras and snippet.extras.arguments %}
-                            <div class="border p-4 rounded mb-4">
-                                <h3 class="mb-4">
+                            <div>
+                                <h4 class="mb-4">
                                     {{ _("Arguments") }}
-                                </h3>
+                                </h4>
                                 {% for argument in snippet.extras.arguments %}
                                     {% snippet 'blocksmith/snippet/snippets/snippet_argument_field.html', argument=argument %}
                                 {% endfor %}
                             </div>
                         {% endif %}
 
-                        <div class="border p-3 rounded mb-4">
-                            <h3>
-                                {{ _("Code") }}
-                            </h3>
-                            <textarea data-module="blocksmith-codemirror" data-module-editable="false" name="html" id="html">{{ snippet.html.strip() }}</textarea>
+                        <div class="mb-4">
+                            <h4 class="mb-4">{{ _("Code") }}</h4>
+                            <textarea class="textarea-cm" data-module="blocksmith-codemirror" data-module-editable="false" name="html" id="html">{{ snippet.html.strip() }}</textarea>
                         </div>
 
-                        <button class="btn btn-outline-primary d-flex justify-content-center w-100 mb-4" title="Add Argument" type="submit">
+                        <button class="btn btn-outline-primary d-flex justify-content-center mb-4" title="Add Argument" type="submit">
                             <span>
                                 {{ _('Preview') }}
                             </span>

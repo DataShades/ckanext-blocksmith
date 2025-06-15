@@ -1,3 +1,5 @@
+from typing import cast
+
 import ckan.plugins.toolkit as tk
 from ckan.types import AuthResult, Context, DataDict
 
@@ -28,8 +30,17 @@ def blocksmith_create_snippet(context: Context, data_dict: DataDict) -> AuthResu
     return {"success": False}
 
 
-def blocksmith_edit_snippet(context: Context, data_dict: DataDict) -> AuthResult:
-    return {"success": False}
+@tk.auth_sysadmins_check
+def blocksmith_update_snippet(context: Context, data_dict: DataDict) -> AuthResult:
+    snippet = model.SnippetModel.get_by_id(tk.get_or_bust(data_dict, "id"))
+
+    if not snippet or tk.current_user.is_anonymous or not tk.current_user.sysadmin:  # type: ignore
+        return {"success": False}
+
+    if snippet.readonly:
+        return {"success": False}
+
+    return {"success": True}
 
 
 def blocksmith_list_snippets(context: Context, data_dict: DataDict) -> AuthResult:

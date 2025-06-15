@@ -145,12 +145,12 @@ def blocksmith_create_snippet(
 def blocksmith_update_snippet(
     context: types.Context, data_dict: types.DataDict
 ) -> blocksmith_types.Snippet:
-    tk.check_access("blocksmith_edit_snippet", context, data_dict)
+    tk.check_access("blocksmith_update_snippet", context, data_dict)
 
-    snippet = model.SnippetModel.get_by_id(data_dict["id"])
+    snippet = cast(model.SnippetModel, model.SnippetModel.get_by_id(data_dict["id"]))
 
-    if not snippet:
-        raise tk.ObjectNotFound("Snippet not found")
+    if snippet.readonly:
+        raise tk.ValidationError("Readonly snippets cannot be updated")
 
     snippet.update(data_dict)
 
@@ -164,6 +164,9 @@ def blocksmith_delete_snippet(
     tk.check_access("blocksmith_delete_snippet", context, data_dict)
 
     snippet = cast(model.SnippetModel, model.SnippetModel.get_by_id(data_dict["id"]))
+
+    if snippet.readonly:
+        raise tk.ValidationError("Readonly snippets cannot be deleted")
 
     snippet.delete()
 
